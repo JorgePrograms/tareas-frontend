@@ -15,34 +15,36 @@ ejercicios para practicar.
 
 Construimos TechCart de a poco: primero HTML, luego CSS, luego JavaScript y por último React.
 
-**CSS**
 - 01. La web y el HTML: semántica y formularios *(disponible)*
+
+**CSS**
 - 02. Introducción a CSS: selectores, especificidad y box model
 - 03. Flexbox
-- 04. CSS Grid
-- 05. Responsive + variables + transiciones
-- 06. Tailwind CSS + componentes reutilizables
+- 04. CSS Grid + responsive
+- 05. Variables + transiciones + Tailwind + componentes
 
 **JavaScript**
-- 07. JavaScript: variables, arrays, map/filter/reduce
-- 08. JavaScript moderno (ES6+): desestructuración, módulos, inmutabilidad
-- 09. DOM + eventos + localStorage
-- 10. Fetch + async/await (MVP vanilla)
+- 06. JavaScript: variables, arrays, map/filter/reduce
+- 07. JavaScript moderno (ES6+): desestructuración, módulos, inmutabilidad
+- 08. DOM + eventos + localStorage
+- 09. Fetch + async/await (MVP vanilla)
 
 **React**
-- 11. React + Vite + JSX
-- 12. Componentes + props + render condicional
-- 13. Listas + eventos + useState
-- 14. useEffect + ciclo de vida
-- 15. Consumo de API + estados de carga
-- 16. React Router
-- 17. Formularios controlados + custom hooks
-- 18. Context API + estado global
-- 19. JWT + rutas protegidas
-- 20. Optimización + despliegue en Vercel
+- 10. React + Vite + JSX
+- 11. Componentes + props + render condicional
+- 12. Listas + eventos + useState
+- 13. useEffect + ciclo de vida
+- 14. Consumo de API + estados de carga
+- 15. React Router
+- 16. Formularios controlados + custom hooks
+- 17. Context API + estado global
+- 18. JWT + rutas protegidas
+- 19. Optimización de componentes
+- 20. Despliegue en Vercel
 - 21. Proyecto final
 
-Cada clase se publica aquí después de la sesión, con su código y sus ejercicios.
+Cada clase se publica aquí después de la sesión, con su código y sus ejercicios. A veces un
+tema se continúa en la clase siguiente: si es así, empezamos con un repaso corto y seguimos.
 
 ## Herramientas
 
