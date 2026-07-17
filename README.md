@@ -11,10 +11,38 @@ ejercicios para practicar.
 3. Abre el código y resuelve los ejercicios (están dentro del propio código).
 4. Sube tus avances con `git add .`, `git commit` y `git push`.
 
-## Clases
+## Ruta del curso (21 clases)
 
-- Clase 01. La web y el HTML: semántica y formularios. Disponible.
-- Clase 02. Introducción a CSS: selectores, especificidad y modelo de cajas. Próxima.
+Construimos TechCart de a poco: primero HTML, luego CSS, luego JavaScript y por último React.
+
+**CSS**
+- 01. La web y el HTML: semántica y formularios *(disponible)*
+- 02. Introducción a CSS: selectores, especificidad y box model
+- 03. Flexbox
+- 04. CSS Grid
+- 05. Responsive + variables + transiciones
+- 06. Tailwind CSS + componentes reutilizables
+
+**JavaScript**
+- 07. JavaScript: variables, arrays, map/filter/reduce
+- 08. JavaScript moderno (ES6+): desestructuración, módulos, inmutabilidad
+- 09. DOM + eventos + localStorage
+- 10. Fetch + async/await (MVP vanilla)
+
+**React**
+- 11. React + Vite + JSX
+- 12. Componentes + props + render condicional
+- 13. Listas + eventos + useState
+- 14. useEffect + ciclo de vida
+- 15. Consumo de API + estados de carga
+- 16. React Router
+- 17. Formularios controlados + custom hooks
+- 18. Context API + estado global
+- 19. JWT + rutas protegidas
+- 20. Optimización + despliegue en Vercel
+- 21. Proyecto final
+
+Cada clase se publica aquí después de la sesión, con su código y sus ejercicios.
 
 ## Herramientas
 
