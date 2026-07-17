@@ -1,0 +1,90 @@
+/* TechCart. Clase 2: estilos base (selectores, especificidad y box model). */
+
+* { box-sizing: border-box; }              /* el ancho incluye padding y borde */
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* tipografia */
+  color: #1d1d1f;        /* color del texto */
+  background: #f5f5f7;   /* color de fondo */
+  max-width: 900px;      /* ancho maximo */
+  margin: 0 auto;        /* centra la pagina */
+  padding: 1rem;         /* espacio interno */
+  line-height: 1.5;      /* alto de linea */
+}
+
+header {
+  background: #fff;      /* fondo */
+  padding: 1rem 1.25rem; /* espacio interno */
+  border-radius: 12px;   /* esquinas redondeadas */
+  margin-bottom: 1.5rem; /* separacion inferior */
+}
+header h1 { color: #0066cc; margin: 0; }   /* color de marca; sin margen */
+
+nav ul { list-style: none; padding: 0; margin: .5rem 0 0; } /* lista sin viñetas */
+nav li { display: inline; margin-right: 1rem; }             /* items en linea */
+nav a { color: #0066cc; text-decoration: none; }            /* enlace sin subrayado */
+nav a:hover { text-decoration: underline; }                 /* subraya al pasar el mouse */
+
+h2 { font-size: 1.4rem; }   /* tamaño de subtitulo */
+
+article {
+  display: inline-block; /* tarjetas una al lado de otra */
+  width: 200px;          /* ancho */
+  vertical-align: top;   /* alinea arriba */
+  background: #fff;      /* fondo */
+  border: 1px solid #d2d2d7; /* borde */
+  border-radius: 12px;   /* esquinas redondeadas */
+  padding: 1rem;         /* espacio interno */
+  margin: .5rem;         /* espacio externo */
+  text-align: center;    /* centra el contenido */
+}
+article img {
+  width: 100%;           /* ocupa el ancho de la tarjeta */
+  aspect-ratio: 1;       /* caja cuadrada */
+  object-fit: contain;   /* imagen entera, sin deformar */
+}
+article h3 { font-size: 1rem; margin: .5rem 0 .25rem; }   /* tamaño y margenes */
+article strong { color: #0a7d2c; font-size: 1.1rem; }     /* el precio resalta */
+
+figure { margin: 0; }    /* sin margenes */
+figcaption {
+  color: #6e6e73;        /* color tenue */
+  font-size: .75rem;     /* tamaño pequeño */
+  text-transform: uppercase; /* mayusculas */
+  letter-spacing: .04em; /* espaciado entre letras */
+}
+
+button {
+  background: #0066cc;   /* fondo de marca */
+  color: #fff;           /* texto blanco */
+  border: 0;             /* sin borde */
+  border-radius: 999px;  /* forma pildora */
+  padding: .5rem 1rem;   /* espacio interno */
+  cursor: pointer;       /* cursor de mano */
+}
+button:hover { filter: brightness(1.1); }  /* se aclara al pasar el mouse */
+
+.destacado {
+  border-color: #0066cc; /* borde azul */
+  border-width: 2px;     /* borde mas grueso */
+}
+
+#compra {
+  background: #fff;      /* fondo */
+  border-radius: 12px;   /* esquinas redondeadas */
+  padding: 1.5rem;       /* espacio interno */
+  margin-top: 2rem;      /* separacion superior */
+}
+#compra input,
+#compra select,
+#compra textarea {
+  width: 100%;           /* ancho completo */
+  padding: .5rem;        /* espacio interno */
+  border: 1px solid #d2d2d7; /* borde */
+  border-radius: 8px;    /* esquinas redondeadas */
+  margin-top: .25rem;    /* separacion superior */
+}
+fieldset { border: 1px solid #d2d2d7; border-radius: 10px; margin-bottom: 1rem; padding: 1rem; } /* marco del grupo */
+legend { font-weight: 600; padding: 0 .4rem; }  /* titulo del grupo */
+
+/* El footer queda sin estilo a proposito: es uno de los retos. */
