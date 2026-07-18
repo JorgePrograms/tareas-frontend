@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!--
+  Clase 2 — Introducción a CSS, selectores/especificidad y box model.
+  Es el MISMO HTML de la Clase 1, pero ahora lo enlazamos a una hoja de estilos
+  (css/styles.css) para darle sus primeros estilos. Todavía sin JavaScript.
+  Nota el atributo class="destacado" en la primera tarjeta: sirve para la
+  demostración de ESPECIFICIDAD (clase vs etiqueta) en el CSS.
+-->
+<html lang="es">
+<head>
+  <!-- <head>: metadatos (no se ven en la página) -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TechCart — Tienda de electrónica</title>
+  <!-- Enlazamos la hoja de estilos externa: forma recomendada de aplicar CSS. -->
+  <link rel="stylesheet" href="./css/styles.css" />
+</head>
+<body>
+
+  <!-- ===== ENCABEZADO ===== -->
+  <!-- <header>: cabecera del sitio (logo + navegación) -->
+  <header>
+    <h1>TechCart</h1>
+    <!-- <nav>: agrupa los enlaces de navegación principales -->
+    <nav aria-label="Principal">
+      <ul>
+        <li><a href="#catalogo">Catálogo</a></li>
+        <li><a href="#compra">Comprar</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== CONTENIDO PRINCIPAL ===== -->
+  <!-- <main>: el contenido central y único de la página -->
+  <main>
+
+    <!-- <section>: sección temática con su propio título -->
+    <section id="catalogo">
+      <h2>Catálogo de productos</h2>
+
+      <!--
+        Cada producto es un <article>: contenido autónomo (una tarjeta).
+        <figure> + <figcaption>: agrupan una imagen con su leyenda.
+      -->
+      <!-- class="destacado": la usamos en el CSS para demostrar especificidad. -->
+      <article class="destacado">
+        <figure>
+          <img src="https://cdn.dummyjson.com/product-images/laptops/apple-macbook-pro-14-inch-space-grey/thumbnail.webp"
+               alt="MacBook Pro 14 pulgadas gris espacial" width="200" />
+          <figcaption>Apple</figcaption>
+        </figure>
+        <h3>MacBook Pro 14"</h3>
+        <p><strong>$1,999.99</strong></p>
+        <button type="button">Agregar al carrito</button>
+      </article>
+
+      <article>
+        <figure>
+          <img src="https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"
+               alt="iPhone 13 Pro" width="200" />
+          <figcaption>Apple</figcaption>
+        </figure>
+        <h3>iPhone 13 Pro</h3>
+        <p><strong>$1,099.99</strong></p>
+        <button type="button">Agregar al carrito</button>
+      </article>
+
+      <article>
+        <figure>
+          <img src="https://cdn.dummyjson.com/product-images/tablets/ipad-mini-2021-starlight/thumbnail.webp"
+               alt="iPad Mini 2021" width="200" />
+          <figcaption>Apple</figcaption>
+        </figure>
+        <h3>iPad Mini 2021</h3>
+        <p><strong>$499.99</strong></p>
+        <button type="button">Agregar al carrito</button>
+      </article>
+
+      <article>
+        <figure>
+          <img src="https://cdn.dummyjson.com/product-images/mobile-accessories/apple-airpods-max-silver/thumbnail.webp"
+               alt="AirPods Max plateados" width="200" />
+          <figcaption>Apple</figcaption>
+        </figure>
+        <h3>AirPods Max</h3>
+        <p><strong>$549.99</strong></p>
+        <button type="button">Agregar al carrito</button>
+      </article>
+
+    </section>
+
+    <!-- ===== FORMULARIO DE COMPRA ===== -->
+    <!--
+      Formularios y validaciones NATIVAS: el navegador valida solo, sin JavaScript.
+        required       → campo obligatorio
+        type="email"   → exige formato de correo
+        pattern        → exige que el texto cumpla una expresión (aquí, un teléfono)
+        minlength      → longitud mínima
+        <fieldset>/<legend> → agrupan campos relacionados
+        <label for>    → asocia el texto con su campo (accesibilidad)
+      Prueba a enviarlo VACÍO: verás los mensajes del navegador.
+    -->
+    <section id="compra">
+      <h2>Finalizar compra</h2>
+
+      <form>
+        <!-- Grupo 1: datos de envío -->
+        <fieldset>
+          <legend>Datos de envío</legend>
+
+          <p>
+            <label for="nombre">Nombre completo</label><br />
+            <input type="text" id="nombre" name="nombre" required minlength="3" autocomplete="name" />
+          </p>
+
+          <p>
+            <label for="email">Correo electrónico</label><br />
+            <input type="email" id="email" name="email" required autocomplete="email" />
+          </p>
+
+          <p>
+            <label for="direccion">Dirección</label><br />
+            <input type="text" id="direccion" name="direccion" required minlength="5" autocomplete="street-address" />
+          </p>
+
+          <p>
+            <label for="ciudad">Ciudad</label><br />
+            <!-- <datalist>: sugerencias mientras el usuario escribe -->
+            <input type="text" id="ciudad" name="ciudad" list="ciudades" required autocomplete="address-level2" />
+            <datalist id="ciudades">
+              <option value="Lima"></option>
+              <option value="Bogotá"></option>
+              <option value="Ciudad de México"></option>
+              <option value="Buenos Aires"></option>
+              <option value="Madrid"></option>
+            </datalist>
+          </p>
+
+          <p>
+            <label for="pais">País</label><br />
+            <!-- <select>: lista desplegable de opciones -->
+            <select id="pais" name="pais" required>
+              <option value="">— Elige un país —</option>
+              <option value="pe">Perú</option>
+              <option value="co">Colombia</option>
+              <option value="mx">México</option>
+              <option value="ar">Argentina</option>
+              <option value="es">España</option>
+            </select>
+          </p>
+
+          <p>
+            <label for="telefono">Teléfono</label><br />
+            <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{7,}"
+                   title="Solo números, al menos 7 dígitos" autocomplete="tel" />
+          </p>
+
+          <p>
+            <label for="fecha">Fecha de entrega deseada</label><br />
+            <input type="date" id="fecha" name="fecha" />
+          </p>
+
+          <p>
+            <label for="notas">Notas para el repartidor (opcional)</label><br />
+            <!-- <textarea>: texto de varias líneas -->
+            <textarea id="notas" name="notas" rows="3" maxlength="200"></textarea>
+          </p>
+        </fieldset>
+
+        <!-- Grupo 2: método de pago (radios) -->
+        <fieldset>
+          <legend>Método de pago</legend>
+
+          <p>
+            <input type="radio" id="pago-tarjeta" name="pago" value="tarjeta" required />
+            <label for="pago-tarjeta">Tarjeta</label>
+          </p>
+          <p>
+            <input type="radio" id="pago-paypal" name="pago" value="paypal" />
+            <label for="pago-paypal">PayPal</label>
+          </p>
+          <p>
+            <input type="radio" id="pago-contra" name="pago" value="contraentrega" />
+            <label for="pago-contra">Contra entrega</label>
+          </p>
+        </fieldset>
+
+        <button type="submit">Confirmar pedido</button>
+      </form>
+    </section>
+
+  </main>
+
+  <!-- ===== PIE DE PÁGINA ===== -->
+  <!-- <footer>: cierre del sitio, con información secundaria -->
+  <footer>
+    <p>TechCart · Proyecto educativo</p>
+    <p>Datos e imágenes de DummyJSON</p>
+  </footer>
+
+</body>
+</html>
