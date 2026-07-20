@@ -13,15 +13,32 @@ body {
 }
 
 header {
-  background: #fff;      /* fondo */
-  padding: 1rem 1.25rem; /* espacio interno */
-  border-radius: 12px;   /* esquinas redondeadas */
-  margin-bottom: 1.5rem; /* separacion inferior */
+  background: #fff;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
 }
 header h1 { color: #0066cc; margin: 0; }   /* color de marca; sin margen */
 
-nav ul { list-style: none; padding: 0; margin: .5rem 0 0; } /* lista sin viñetas */
-nav li { display: inline; margin-right: 1rem; }             /* items en linea */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: .5rem 0 0;
+
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}/* lista sin viñetas */
+nav {
+  width: 100%;
+}
+
+nav li { display: inline; }             /* items en linea */
 nav a { color: #0066cc; text-decoration: none; }            /* enlace sin subrayado */
 nav a:hover { text-decoration: underline; }                 /* subraya al pasar el mouse */
 
@@ -65,8 +82,10 @@ button {
 button:hover { filter: brightness(1.1); }  /* se aclara al pasar el mouse */
 
 .destacado {
-  border-color: #0066cc; /* borde azul */
-  border-width: 2px;     /* borde mas grueso */
+ border-color: #7C3AED;
+    border-width: 2px;
+
+    align-self: flex-start;
 }
 
 #compra {
@@ -87,4 +106,50 @@ button:hover { filter: brightness(1.1); }  /* se aclara al pasar el mouse */
 fieldset { border: 1px solid #d2d2d7; border-radius: 10px; margin-bottom: 1rem; padding: 1rem; } /* marco del grupo */
 legend { font-weight: 600; padding: 0 .4rem; }  /* titulo del grupo */
 
+.categorias{
+    display: flex;
+    justify-content: space-evenly;
+    gap: 1rem;
+    margin: 1rem 0;
+    flex-wrap: wrap;
+}
+#catalogo{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+#catalogo h2,
+.categorias{
+    width: 100%;
+}
+
 /* El footer queda sin estilo a proposito: es uno de los retos. */
+footer{
+    margin-top: 30px;
+    padding: 30px;
+    background: #7C3AED;
+    color: white;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+footer div{
+    flex: 1;
+    min-width: 180px;
+}
+
+footer h3{
+    margin-top: 0;
+}
+
+footer a{
+    color: white;
+    text-decoration: none;
+}
+
+footer a:hover{
+    text-decoration: underline;
+}

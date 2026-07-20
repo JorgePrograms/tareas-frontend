@@ -37,7 +37,12 @@
     <!-- <section>: sección temática con su propio título -->
     <section id="catalogo">
       <h2>Catálogo de productos</h2>
-
+<div class="categorias">
+    <button>Todos</button>
+    <button>Celulares</button>
+    <button>Laptops</button>
+    <button>Accesorios</button>
+</div>
       <!--
         Cada producto es un <article>: contenido autónomo (una tarjeta).
         <figure> + <figcaption>: agrupan una imagen con su leyenda.
@@ -193,10 +198,24 @@
 
   <!-- ===== PIE DE PÁGINA ===== -->
   <!-- <footer>: cierre del sitio, con información secundaria -->
-  <footer>
-    <p>TechCart · Proyecto educativo</p>
-    <p>Datos e imágenes de DummyJSON</p>
-  </footer>
+ <footer>
+  <div>
+    <h3>TechCart</h3>
+    <p>Proyecto educativo de Frontend.</p>
+  </div>
+
+  <div>
+    <h3>Enlaces</h3>
+    <p><a href="#catalogo">Catálogo</a></p>
+    <p><a href="#compra">Comprar</a></p>
+  </div>
+
+  <div>
+    <h3>Contacto</h3>
+    <p>📧 contacto@techcart.com</p>
+    <p>📞 +51 999 999 999</p>
+  </div>
+</footer>
 
 </body>
 </html>
