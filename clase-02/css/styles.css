@@ -18,11 +18,11 @@ header {
   border-radius: 12px;   /* esquinas redondeadas */
   margin-bottom: 1.5rem; /* separacion inferior */
 }
-header h1 { color: #0066cc; margin: 0; }   /* color de marca; sin margen */
+header h1 { color: #7C3AED; margin: 0; }   /* color de marca; sin margen */
 
 nav ul { list-style: none; padding: 0; margin: .5rem 0 0; } /* lista sin viñetas */
 nav li { display: inline; margin-right: 1rem; }             /* items en linea */
-nav a { color: #0066cc; text-decoration: none; }            /* enlace sin subrayado */
+nav a { color: #7C3AED; text-decoration: none; }            /* enlace sin subrayado */
 nav a:hover { text-decoration: underline; }                 /* subraya al pasar el mouse */
 
 h2 { font-size: 1.4rem; }   /* tamaño de subtitulo */
@@ -37,6 +37,12 @@ article {
   padding: 1rem;         /* espacio interno */
   margin: .5rem;         /* espacio externo */
   text-align: center;    /* centra el contenido */
+  box-shadow: 0 4px 10px rgba(0,0,0,.15);
+  transition: all .3s ease;
+}
+article:hover{
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0,0,0,.25);
 }
 article img {
   width: 100%;           /* ocupa el ancho de la tarjeta */
@@ -55,7 +61,7 @@ figcaption {
 }
 
 button {
-  background: #0066cc;   /* fondo de marca */
+  background: #7C3AED;   /* fondo de marca */
   color: #fff;           /* texto blanco */
   border: 0;             /* sin borde */
   border-radius: 999px;  /* forma pildora */
@@ -65,7 +71,7 @@ button {
 button:hover { filter: brightness(1.1); }  /* se aclara al pasar el mouse */
 
 .destacado {
-  border-color: #0066cc; /* borde azul */
+  border-color: #7C3AED; /* borde azul */
   border-width: 2px;     /* borde mas grueso */
 }
 
@@ -88,3 +94,11 @@ fieldset { border: 1px solid #d2d2d7; border-radius: 10px; margin-bottom: 1rem; 
 legend { font-weight: 600; padding: 0 .4rem; }  /* titulo del grupo */
 
 /* El footer queda sin estilo a proposito: es uno de los retos. */
+footer{
+  margin-top: 30px;
+  padding: 20px;
+  background: #7C3AED;
+  color: white;
+  text-align: center;
+  border-radius: 12px;
+}
