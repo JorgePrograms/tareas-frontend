@@ -135,12 +135,10 @@ footer{
     flex-wrap: wrap;
     gap: 2rem;
 }
-
 footer div{
     flex: 1;
     min-width: 180px;
 }
-
 footer h3{
     margin-top: 0;
 }
@@ -149,7 +147,6 @@ footer a{
     color: white;
     text-decoration: none;
 }
-
 footer a:hover{
     text-decoration: underline;
 }
