@@ -21,12 +21,13 @@
   <header>
     <h1>TechCart</h1>
     <!-- <nav>: agrupa los enlaces de navegación principales -->
-    <nav aria-label="Principal">
-      <ul>
-        <li><a href="#catalogo">Catálogo</a></li>
-        <li><a href="#compra">Comprar</a></li>
-      </ul>
-    </nav>
+  <nav aria-label="Principal">
+  <ul>
+    <li><a href="#catalogo">Catálogo</a></li>
+    <li><a href="#compra">Comprar</a></li>
+    <li><a href="nosotros.html">Nosotros</a></li>
+  </ul>
+</nav>
   </header>
 
   <!-- ===== CONTENIDO PRINCIPAL ===== -->
@@ -84,6 +85,21 @@
         <p><strong>$549.99</strong></p>
         <button type="button">Agregar al carrito</button>
       </article>
+
+     <article>
+  <figure>
+    <img src="https://dojiw2m9tvv09.cloudfront.net/9549/product/hp-tecladomecanicorgbgk4005383.jpg"
+         alt="Teclado mecánico RGB"
+         width="200" />
+    <figcaption>Logitech</figcaption>
+  </figure>
+
+  <h3>Teclado Mecánico RGB</h3>
+
+  <p><strong>$199.99</strong></p>
+
+  <button type="button">Agregar al carrito</button>
+</article>
 
     </section>
 
@@ -152,6 +168,16 @@
             <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{7,}"
                    title="Solo números, al menos 7 dígitos" autocomplete="tel" />
           </p>
+
+          <p>
+  <label for="cantidad">Cantidad</label><br />
+  <input type="number" id="cantidad" name="cantidad" min="1" max="10" required />
+</p>
+
+<p>
+  <label for="empresa">Empresa</label><br />
+  <input type="text" id="empresa" name="empresa" />
+</p>
 
           <p>
             <label for="fecha">Fecha de entrega deseada</label><br />
