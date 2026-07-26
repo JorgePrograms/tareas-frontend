@@ -1,0 +1,251 @@
+/* TechCart. Clase 5 — Responsive: unidades, media queries, variables CSS y transiciones.
+   La página se maqueta con Grid + Flexbox (Clases 3-4). Hoy gana: paleta con nombre
+   (tokens), modo oscuro, micro-interacciones y una franja de beneficios. */
+
+* { box-sizing: border-box; }              /* el ancho incluye padding y borde */
+
+/* ===== Paleta de TechCart (design tokens) =====
+   Cada color con nombre y un único dueño: se declara una vez y se cambia en un solo lugar. */
+:root {
+  --marca: #0066cc;        /* azul de la marca */
+  --fondo: #f5f5f7;        /* fondo de la página */
+  --tarjeta: #fff;         /* fondo de tarjetas y paneles */
+  --texto: #1d1d1f;        /* texto principal */
+  --texto-suave: #6e6e73;  /* texto secundario */
+  --borde: #d2d2d7;        /* bordes */
+  --precio: #0a7d2c;       /* verde del precio */
+}
+
+/* La misma paleta en versión nocturna: mismos nombres, otros valores.
+   Se activa cuando el sistema operativo de la persona está en modo oscuro. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --marca: #3d9bff;        /* el azul aclara para contrastar sobre oscuro */
+    --fondo: #111114;
+    --tarjeta: #1d1d1f;
+    --texto: #f5f5f7;
+    --texto-suave: #a1a1a6;
+    --borde: #3a3a3c;
+    --precio: #30d158;       /* el verde también aclara, o queda casi invisible */
+  }
+}
+
+/* ----- La página entera es un GRID con plano (grid-template-areas) ----- */
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; /* tipografia */
+  color: var(--texto);        /* color del texto */
+  background: var(--fondo);   /* color de fondo */
+  max-width: 900px;      /* ancho maximo */
+  margin: 0 auto;        /* centra la pagina */
+  padding: 1rem;         /* espacio interno */
+  line-height: 1.5;      /* alto de linea */
+  display: grid;
+  grid-template-columns: 220px 1fr;   /* lateral fija, contenido con el resto */
+  grid-template-areas:
+    "cabecera cabecera"
+    "lateral  contenido"
+    "pie      pie";
+  grid-template-rows: auto 1fr auto;  /* cabecera y pie a su contenido; el medio estira */
+  min-height: 100vh;                  /* la pagina mide al menos la pantalla completa */
+  gap: 24px;                          /* separa las zonas del plano */
+}
+
+/* ----- Cabecera con Flexbox ----- */
+header {
+  grid-area: cabecera;            /* su zona en el plano */
+  display: flex;                  /* enciende Flexbox: h1 y nav en fila */
+  justify-content: space-between; /* logo a un extremo, menu al otro (eje principal) */
+  align-items: center;            /* centrados verticalmente (eje cruzado) */
+  flex-wrap: wrap;                /* en pantalla angosta, el menu baja */
+  gap: 1rem;                      /* separacion entre logo y menu */
+  background: var(--tarjeta);     /* fondo */
+  padding: 1rem 1.25rem;          /* espacio interno */
+  border-radius: 12px;            /* esquinas redondeadas */
+}
+header h1 { color: var(--marca); margin: 0; }   /* color de marca; sin margen */
+
+nav ul {
+  display: flex;         /* enlaces en fila */
+  gap: 20px;             /* separacion pareja, sin margin por elemento */
+  list-style: none;      /* sin viñetas */
+  padding: 0;            /* sin la sangria por defecto */
+  margin: 0;             /* sin el margen por defecto */
+}
+nav a { color: var(--marca); text-decoration: none; }       /* enlace sin subrayado */
+nav a:hover { text-decoration: underline; }                 /* subraya al pasar el mouse */
+
+/* ----- Barra lateral de categorías ----- */
+.lateral { grid-area: lateral; }                            /* su zona en el plano */
+.lateral ul { list-style: none; padding: 0; margin: 0; }    /* lista limpia */
+.lateral a { color: var(--marca); text-decoration: none; }  /* enlaces de categoria */
+
+main { grid-area: contenido; }   /* su zona en el plano */
+
+h2 { font-size: 1.4rem; }   /* tamaño de subtitulo */
+
+/* ----- Franja de beneficios: tres tarjetas iguales -----
+   Los <article> ya heredan el estilo de tarjeta (fondo, borde, hover);
+   aquí solo los acomodamos en fila. */
+.beneficios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);   /* tres columnas parejas (Clase 3) */
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.beneficios .icono { font-size: 1.6rem; margin: 0; }        /* rem, de hoy */
+.beneficios h3 { margin: .25rem 0; font-size: 1rem; }
+.beneficios p { margin: 0; color: var(--texto-suave); font-size: .85rem; }
+
+/* ----- Catálogo con CSS Grid -----
+   "Tantas columnas como quepan, de minimo 200px, repartiendo el resto":
+   responsive sin media queries. */
+.productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 32px 16px;   /* filas · columnas: mas aire entre filas que entre columnas */
+}
+
+/* Cada tarjeta es un contenedor flex en columna; su ancho lo da la columna del grid. */
+article {
+  display: flex;
+  flex-direction: column;   /* imagen, nombre, precio, boton apilados */
+  align-items: center;      /* centrados en horizontal (en columna, el eje cruzado) */
+  background: var(--tarjeta);      /* fondo */
+  border: 1px solid var(--borde);  /* borde */
+  border-radius: 12px;      /* esquinas redondeadas */
+  padding: 1rem;            /* espacio interno */
+  text-align: center;       /* centra el texto */
+  transition: transform .2s ease, box-shadow .2s ease;  /* la transicion vive en el estado BASE */
+}
+article:hover {
+  transform: translateY(-4px);              /* la tarjeta se levanta */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .12);/* y gana sombra */
+}
+article img {
+  width: 100%;           /* ocupa el ancho de la tarjeta */
+  aspect-ratio: 1;       /* caja cuadrada */
+  object-fit: contain;   /* imagen entera, sin deformar */
+}
+article h3 { font-size: 1rem; margin: .5rem 0 .25rem; }   /* tamaño y margenes */
+article strong { color: var(--precio); font-size: 1.1rem; }  /* el precio resalta */
+
+figure { margin: 0; }    /* sin margenes */
+figcaption {
+  color: var(--texto-suave); /* color tenue */
+  font-size: .75rem;         /* tamaño pequeño */
+  text-transform: uppercase; /* mayusculas */
+  letter-spacing: .04em;     /* espaciado entre letras */
+}
+
+button {
+  background: var(--marca);  /* fondo de marca */
+  color: #fff;               /* texto blanco: NO es un fondo, por eso no se tokeniza */
+  border: 0;                 /* sin borde */
+  border-radius: 999px;      /* forma pildora */
+  padding: .5rem 1rem;       /* espacio interno */
+  cursor: pointer;           /* cursor de mano */
+  transition: transform .15s ease, filter .15s ease;  /* animar hover Y active */
+}
+button:hover {
+  filter: brightness(1.1);       /* se aclara al pasar el mouse */
+  transform: translateY(-1px);   /* se levanta un pelito */
+}
+button:active {
+  transform: translateY(0) scale(.97);   /* al hacer clic, se hunde */
+}
+
+/* La tarjeta destacada: borde de marca y doble de ancho en el catálogo. */
+.destacado {
+  border-color: var(--marca);  /* borde azul */
+  border-width: 2px;           /* borde mas grueso */
+  grid-column: span 2;         /* abarca 2 columnas del catalogo */
+}
+
+/* ----- Formulario de compra: dos columnas con Grid ----- */
+#compra {
+  background: var(--tarjeta); /* fondo */
+  border-radius: 12px;        /* esquinas redondeadas */
+  padding: 1.5rem;            /* espacio interno */
+  margin-top: 2rem;           /* separacion superior */
+}
+#compra form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;   /* los dos fieldset, lado a lado */
+  gap: 24px;
+}
+#compra form button {
+  grid-column: 1 / -1;   /* el boton cruza de borde a borde */
+  justify-self: center;  /* y no se estira: se centra en su fila */
+}
+#compra input,
+#compra select,
+#compra textarea {
+  width: 100%;           /* ancho completo */
+  padding: .5rem;        /* espacio interno */
+  border: 1px solid var(--borde); /* borde */
+  border-radius: 8px;    /* esquinas redondeadas */
+  margin-top: .25rem;    /* separacion superior */
+}
+fieldset { border: 1px solid var(--borde); border-radius: 10px; margin-bottom: 1rem; padding: 1rem; } /* marco del grupo */
+legend { font-weight: 600; padding: 0 .4rem; }  /* titulo del grupo */
+
+/* ----- Pie de tienda: tres columnas con Flexbox ----- */
+footer {
+  grid-area: pie;                 /* su zona en el plano */
+  display: flex;                  /* el pie es un contenedor flex */
+  justify-content: space-between; /* tres columnas repartidas a lo ancho */
+  align-items: flex-start;        /* todas arrancan desde arriba */
+  gap: 24px;                      /* separacion entre columnas */
+  text-align: left;      /* texto a la izquierda */
+  color: var(--texto-suave);  /* color tenue */
+  font-size: .85rem;     /* tamaño pequeño */
+}
+footer ul { list-style: none; padding: 0; margin: 0; }  /* lista limpia */
+
+/* ============================================================
+   RESPONSIVE: los breakpoints van al FINAL y de mayor a menor,
+   porque en lo que choquen gana el que esté más abajo (la cascada).
+   ============================================================ */
+
+/* Pantallas medianas (tablet): la lateral se angosta */
+@media (max-width: 900px) {
+  body {
+    grid-template-columns: 170px 1fr;
+    gap: 16px;
+  }
+}
+
+/* Celular (600px o menos): el plano se re-dibuja a una sola columna */
+@media (max-width: 600px) {
+
+  /* 1) La cabecera se apila: logo arriba, menú abajo */
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* 2) El plano de la página, re-dibujado: una sola columna */
+  body {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "cabecera"
+      "lateral"
+      "contenido"
+      "pie";
+  }
+
+  /* 3) En una columna, la destacada no puede pedir dos */
+  .destacado { grid-column: auto; }
+
+  /* 4) El formulario, a una columna */
+  #compra form { grid-template-columns: 1fr; }
+
+  /* 5) El título, a escala del celular */
+  header h1 { font-size: 1.5rem; }   /* 24px, en rem */
+
+  /* 6) El footer, apilado */
+  footer { flex-direction: column; }
+
+  /* 7) La franja de beneficios, a una columna */
+  .beneficios { grid-template-columns: 1fr; }
+}

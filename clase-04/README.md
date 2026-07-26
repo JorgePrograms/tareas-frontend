@@ -31,7 +31,8 @@ barra lateral de categorías y un footer de verdad).
 6. Alinear dentro de la celda: la escalera `justify/align-items` (todos) · `-self` (uno) ·
    `-content` (la cuadrícula entera).
 7. `grid-template-areas`: el plano de la página con nombres + la barra lateral de categorías.
-8. `order`: reordenar sin tocar el HTML.
+8. `grid-template-rows`: el pie pegado abajo (`min-height: 100vh` + fila `1fr`).
+9. `order`: reordenar sin tocar el HTML (cualquier entero; empates = orden del HTML).
 
 **Bonus (solo si sobra tiempo):** arranque de Responsive con media queries.
 
@@ -43,7 +44,8 @@ Abre `index.html` con doble clic, o con la extensión Live Server en VS Code.
 
 - Grid: https://cssgridgarden.com — se juega **salteado** con el selector de nivel (arriba a la
   derecha), un rango por concepto: repaso N20-25 · líneas N1-6 · span N7-11 · filas N12-15 ·
-  grid-area N16-17 · order N18-19. Terminar los 28 niveles es la mejor práctica que existe.
+  grid-area N16-17 · order N18-19 · filas a mano N26-28. (El N22 se salta: usa `em`, unidad de
+  la Clase 5.) En clase los jugamos todos; repetirlos sin ayuda es la mejor práctica que existe.
 - Alineación (el juego no la trae): los editores en vivo de MDN (`justify-items`,
   `align-content`) y la chuleta visual https://grid.malven.co — guárdala en favoritos.
 
@@ -56,7 +58,21 @@ Abre `index.html` con doble clic, o con la extensión Live Server en VS Code.
 - justify-items: https://developer.mozilla.org/es/docs/Web/CSS/justify-items
 - justify-self: https://developer.mozilla.org/es/docs/Web/CSS/justify-self
 - order: https://developer.mozilla.org/es/docs/Web/CSS/order
+- grid-template-rows: https://developer.mozilla.org/es/docs/Web/CSS/grid-template-rows
 - Media queries (bonus): https://developer.mozilla.org/es/docs/Web/CSS/CSS_media_queries/Using_media_queries
+
+## Lecturas adicionales
+
+Tres temas que en clase **no** desarrollamos a propósito. Ninguno hace falta para las tareas;
+léelos cuando lo de la clase ya lo domines:
+
+- `grid-auto-flow: dense` — rellena los huecos que aparecen cuando una tarjeta ancha no cabe
+  al final de una fila (ojo: cambia el orden visual):
+  https://developer.mozilla.org/es/docs/Web/CSS/grid-auto-flow
+- `grid-auto-rows` — fija el alto de las filas implícitas sin declararlas una por una:
+  https://developer.mozilla.org/es/docs/Web/CSS/grid-auto-rows
+- `subgrid` — que un grid hijo herede las columnas del padre:
+  https://developer.mozilla.org/es/docs/Web/CSS/CSS_grid_layout/Subgrid
 
 ## Tareas
 
