@@ -72,7 +72,6 @@ nav ul {
   margin: 0;             /* sin el margen por defecto */
 }
 nav a { color: var(--marca); text-decoration: none; }       /* enlace sin subrayado */
-nav a:hover { text-decoration: underline; }                 /* subraya al pasar el mouse */
 
 /* ----- Barra lateral de categorías ----- */
 .lateral { grid-area: lateral; }                            /* su zona en el plano */
@@ -86,12 +85,6 @@ h2 { font-size: 1.4rem; }   /* tamaño de subtitulo */
 /* ----- Franja de beneficios: tres tarjetas iguales -----
    Los <article> ya heredan el estilo de tarjeta (fondo, borde, hover);
    aquí solo los acomodamos en fila. */
-.beneficios {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);   /* tres columnas parejas (Clase 3) */
-  gap: 16px;
-  margin-bottom: 24px;
-}
 .beneficios .icono { font-size: 1.6rem; margin: 0; }        /* rem, de hoy */
 .beneficios h3 { margin: .25rem 0; font-size: 1rem; }
 .beneficios p { margin: 0; color: var(--texto-suave); font-size: .85rem; }
@@ -168,15 +161,6 @@ button:active {
   padding: 1.5rem;            /* espacio interno */
   margin-top: 2rem;           /* separacion superior */
 }
-#compra form {
-  display: grid;
-  grid-template-columns: 1fr 1fr;   /* los dos fieldset, lado a lado */
-  gap: 24px;
-}
-#compra form button {
-  grid-column: 1 / -1;   /* el boton cruza de borde a borde */
-  justify-self: center;  /* y no se estira: se centra en su fila */
-}
 #compra input,
 #compra select,
 #compra textarea {
@@ -191,14 +175,10 @@ legend { font-weight: 600; padding: 0 .4rem; }  /* titulo del grupo */
 
 /* ----- Pie de tienda: tres columnas con Flexbox ----- */
 footer {
-  grid-area: pie;                 /* su zona en el plano */
-  display: flex;                  /* el pie es un contenedor flex */
-  justify-content: space-between; /* tres columnas repartidas a lo ancho */
-  align-items: flex-start;        /* todas arrancan desde arriba */
-  gap: 24px;                      /* separacion entre columnas */
-  text-align: left;      /* texto a la izquierda */
-  color: var(--texto-suave);  /* color tenue */
-  font-size: .85rem;     /* tamaño pequeño */
+  grid-area: pie;
+  text-align: left;
+  color: var(--texto-suave);
+  font-size: .85rem;
 }
 footer ul { list-style: none; padding: 0; margin: 0; }  /* lista limpia */
 
@@ -242,10 +222,4 @@ footer ul { list-style: none; padding: 0; margin: 0; }  /* lista limpia */
 
   /* 5) El título, a escala del celular */
   header h1 { font-size: 1.5rem; }   /* 24px, en rem */
-
-  /* 6) El footer, apilado */
-  footer { flex-direction: column; }
-
-  /* 7) La franja de beneficios, a una columna */
-  .beneficios { grid-template-columns: 1fr; }
 }

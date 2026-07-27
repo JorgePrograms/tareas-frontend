@@ -17,6 +17,32 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TechCart — Tienda de electrónica</title>
+
+  <!-- Tailwind CSS v4 -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <style type="text/tailwindcss">
+    @theme {
+      --color-marca: #0066cc;
+      --color-precio: #0a7d2c;
+      --color-borde: #d2d2d7;
+      --color-fondo: #f5f5f7;
+      --color-tarjeta: #ffffff;
+      --color-texto: #1d1d1f;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --color-marca: #3d9bff;
+        --color-precio: #30d158;
+        --color-borde: #3a3a3c;
+        --color-fondo: #111114;
+        --color-tarjeta: #1d1d1f;
+        --color-texto: #f5f5f7;
+      }
+    }
+  </style>
+
   <!-- Enlazamos la hoja de estilos externa: forma recomendada de aplicar CSS. -->
   <link rel="stylesheet" href="./css/styles.css" />
 </head>
@@ -26,11 +52,20 @@
   <!-- <header>: cabecera del sitio (logo + navegación) -->
   <header>
     <h1>TechCart</h1>
+
     <!-- <nav>: agrupa los enlaces de navegación principales -->
     <nav aria-label="Principal">
-      <ul>
-        <li><a href="#catalogo">Catálogo</a></li>
-        <li><a href="#compra">Comprar</a></li>
+      <ul class="flex gap-5">
+        <li>
+          <a href="#catalogo" class="text-marca hover:underline">
+            Catálogo
+          </a>
+        </li>
+        <li>
+          <a href="#compra" class="text-marca hover:underline">
+            Comprar
+          </a>
+        </li>
       </ul>
     </nav>
   </header>
@@ -40,10 +75,10 @@
   <aside class="lateral">
     <h2>Categorías</h2>
     <ul>
-      <li><a href="#">Laptops</a></li>
-      <li><a href="#">Teléfonos</a></li>
-      <li><a href="#">Tablets</a></li>
-      <li><a href="#">Audio</a></li>
+      <li><a href="#" class="text-marca">Laptops</a></li>
+      <li><a href="#" class="text-marca">Teléfonos</a></li>
+      <li><a href="#" class="text-marca">Tablets</a></li>
+      <li><a href="#" class="text-marca">Audio</a></li>
     </ul>
   </aside>
 
@@ -54,22 +89,27 @@
     <!-- ===== FRANJA DE BENEFICIOS =====
       Por qué comprar aquí. Sus <article> heredan el estilo de tarjeta
       (fondo, borde, hover) sin CSS propio: solo se acomodan en fila. -->
-    <section class="beneficios" aria-label="Beneficios de la tienda">
+    <section class="beneficios grid grid-cols-1 md:grid-cols-3 gap-4 mb-6"
+             aria-label="Beneficios de la tienda">
+
       <article>
         <p class="icono">🚚</p>
         <h3>Envío gratis</h3>
         <p>En compras desde $50, a todo el país.</p>
       </article>
+
       <article>
         <p class="icono">🛡️</p>
         <h3>Garantía real</h3>
         <p>12 meses en todos los productos.</p>
       </article>
+
       <article>
         <p class="icono">🔒</p>
         <h3>Pago seguro</h3>
         <p>Tarjeta, PayPal o contra entrega.</p>
       </article>
+
     </section>
 
     <!-- <section>: sección temática con su propio título -->
@@ -88,10 +128,13 @@
         <figure> + <figcaption>: agrupan una imagen con su leyenda.
       -->
       <!-- class="destacado": la usamos en el CSS para resaltar esta tarjeta. -->
-      <article class="destacado">
+      <article class="destacado group">
         <figure>
-          <img src="https://cdn.dummyjson.com/product-images/laptops/apple-macbook-pro-14-inch-space-grey/thumbnail.webp"
-               alt="MacBook Pro 14 pulgadas gris espacial" width="200" />
+          <img
+            class="w-full aspect-square object-contain transition group-hover:scale-105"
+            src="https://cdn.dummyjson.com/product-images/laptops/apple-macbook-pro-14-inch-space-grey/thumbnail.webp"
+            alt="MacBook Pro 14 pulgadas gris espacial"
+            width="200" />
           <figcaption>Apple</figcaption>
         </figure>
         <h3>MacBook Pro 14"</h3>
@@ -99,10 +142,13 @@
         <button type="button">Agregar al carrito</button>
       </article>
 
-      <article>
+      <article class="group">
         <figure>
-          <img src="https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"
-               alt="iPhone 13 Pro" width="200" />
+          <img
+            class="w-full aspect-square object-contain transition group-hover:scale-105"
+            src="https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"
+            alt="iPhone 13 Pro"
+            width="200" />
           <figcaption>Apple</figcaption>
         </figure>
         <h3>iPhone 13 Pro</h3>
@@ -110,10 +156,13 @@
         <button type="button">Agregar al carrito</button>
       </article>
 
-      <article>
+      <article class="group">
         <figure>
-          <img src="https://cdn.dummyjson.com/product-images/tablets/ipad-mini-2021-starlight/thumbnail.webp"
-               alt="iPad Mini 2021" width="200" />
+          <img
+            class="w-full aspect-square object-contain transition group-hover:scale-105"
+            src="https://cdn.dummyjson.com/product-images/tablets/ipad-mini-2021-starlight/thumbnail.webp"
+            alt="iPad Mini 2021"
+            width="200" />
           <figcaption>Apple</figcaption>
         </figure>
         <h3>iPad Mini 2021</h3>
@@ -121,10 +170,13 @@
         <button type="button">Agregar al carrito</button>
       </article>
 
-      <article>
+      <article class="group">
         <figure>
-          <img src="https://cdn.dummyjson.com/product-images/mobile-accessories/apple-airpods-max-silver/thumbnail.webp"
-               alt="AirPods Max plateados" width="200" />
+          <img
+            class="w-full aspect-square object-contain transition group-hover:scale-105"
+            src="https://cdn.dummyjson.com/product-images/mobile-accessories/apple-airpods-max-silver/thumbnail.webp"
+            alt="AirPods Max plateados"
+            width="200" />
           <figcaption>Apple</figcaption>
         </figure>
         <h3>AirPods Max</h3>
@@ -147,10 +199,11 @@
         <label for>    → asocia el texto con su campo (accesibilidad)
       Prueba a enviarlo VACÍO: verás los mensajes del navegador.
     -->
-    <section id="compra">
+        <section id="compra">
       <h2>Finalizar compra</h2>
 
-      <form>
+      <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
         <!-- Grupo 1: datos de envío -->
         <fieldset>
           <legend>Datos de envío</legend>
@@ -198,8 +251,14 @@
 
           <p>
             <label for="telefono">Teléfono</label><br />
-            <input type="tel" id="telefono" name="telefono" required pattern="[0-9]{7,}"
-                   title="Solo números, al menos 7 dígitos" autocomplete="tel" />
+            <input
+              type="tel"
+              id="telefono"
+              name="telefono"
+              required
+              pattern="[0-9]{7,}"
+              title="Solo números, al menos 7 dígitos"
+              autocomplete="tel" />
           </p>
 
           <p>
@@ -222,42 +281,61 @@
             <input type="radio" id="pago-tarjeta" name="pago" value="tarjeta" required />
             <label for="pago-tarjeta">Tarjeta</label>
           </p>
+
           <p>
             <input type="radio" id="pago-paypal" name="pago" value="paypal" />
             <label for="pago-paypal">PayPal</label>
           </p>
+
           <p>
             <input type="radio" id="pago-contra" name="pago" value="contraentrega" />
             <label for="pago-contra">Contra entrega</label>
           </p>
         </fieldset>
 
-        <button type="submit">Confirmar pedido</button>
+        <button
+          type="submit"
+          class="md:col-span-2 col-span-1">
+          Confirmar pedido
+        </button>
+
       </form>
     </section>
 
   </main>
 
-  <!-- ===== PIE DE PÁGINA ===== -->
+    <!-- ===== PIE DE PÁGINA ===== -->
   <!-- <footer>: cierre del sitio, con tres columnas maquetadas con Flexbox -->
-  <footer>
+  <footer class="flex flex-col md:flex-row justify-between gap-6">
+
     <div>
       <h3>TechCart</h3>
       <p>Proyecto educativo</p>
       <p>Datos e imágenes de DummyJSON</p>
     </div>
+
     <div>
       <h3>Enlaces</h3>
       <ul>
-        <li><a href="#catalogo">Catálogo</a></li>
-        <li><a href="#compra">Comprar</a></li>
+        <li>
+          <a href="#catalogo" class="text-marca">
+            Catálogo
+          </a>
+        </li>
+        <li>
+          <a href="#compra" class="text-marca">
+            Comprar
+          </a>
+        </li>
       </ul>
     </div>
+
     <div>
       <h3>Contacto</h3>
       <p>hola@techcart.dev</p>
       <p>+51 999 999 999</p>
     </div>
+
   </footer>
 
 </body>
