@@ -24,92 +24,255 @@ header {
   border-radius: 12px;   /* esquinas redondeadas */
   margin-bottom: 1.5rem; /* separacion inferior */
 }
-header h1 { color: #0066cc; margin: 0; }   /* color de marca; sin margen */
+
+header h1 {
+  color: #0066cc;
+  margin: 0;
+}
 
 nav ul {
-  display: flex;         /* enlaces en fila */
-  gap: 20px;             /* separacion pareja, sin margin por elemento */
-  list-style: none;      /* sin viñetas */
-  padding: 0;            /* sin la sangria por defecto */
-  margin: 0;             /* sin el margen por defecto */
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-nav a { color: #0066cc; text-decoration: none; }            /* enlace sin subrayado */
-nav a:hover { text-decoration: underline; }                 /* subraya al pasar el mouse */
 
-h2 { font-size: 1.4rem; }   /* tamaño de subtitulo */
+nav a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+/* ================================================= */
+/* MAQUETACIÓN GENERAL DE LA PÁGINA (TAREA 2) */
+/* ================================================= */
+
+main{
+    display:grid;
+
+  grid-template-columns:1fr 1fr;
+
+  grid-template-areas:
+    "catalogo catalogo"
+    "promo promo"
+    "compra compra";
+
+  gap:20px;
+}
+
+#catalogo{
+  grid-area:catalogo;
+}
+
+.promo{
+  grid-area:promo;
+
+  background:#fff;
+  border-radius:12px;
+  padding:1.5rem;
+  border:1px solid #d2d2d7;
+
+  display:flex;
+  flex-direction:column;
+  gap:1rem;
+
+  height:100%;
+}
+
+.promo button{
+  align-self:flex-start;
+}
+
+#compra{
+  grid-area:compra;
+}
 
 /* ----- Catálogo con CSS Grid -----
    "Tantas columnas como quepan, de minimo 200px, repartiendo el resto":
    responsive sin media queries. */
-.productos {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
+
+.productos{
+display:grid;
+
+  grid-template-columns:
+    repeat(auto-fill,minmax(200px,1fr));
+
+  gap:32px 16px;;
 }
 
-/* Cada tarjeta es un contenedor flex en columna; su ancho lo da la columna del grid. */
-article {
-  display: flex;
-  flex-direction: column;   /* imagen, nombre, precio, boton apilados */
-  align-items: center;      /* centrados en horizontal (en columna, el eje cruzado) */
-  background: #fff;      /* fondo */
-  border: 1px solid #d2d2d7; /* borde */
-  border-radius: 12px;   /* esquinas redondeadas */
-  padding: 1rem;         /* espacio interno */
-  text-align: center;    /* centra el texto */
-}
-article img {
-  width: 100%;           /* ocupa el ancho de la tarjeta */
-  aspect-ratio: 1;       /* caja cuadrada */
-  object-fit: contain;   /* imagen entera, sin deformar */
-}
-article h3 { font-size: 1rem; margin: .5rem 0 .25rem; }   /* tamaño y margenes */
-article strong { color: #0a7d2c; font-size: 1.1rem; }     /* el precio resalta */
+/* TAREA 1 */
 
-figure { margin: 0; }    /* sin margenes */
-figcaption {
-  color: #6e6e73;        /* color tenue */
-  font-size: .75rem;     /* tamaño pequeño */
-  text-transform: uppercase; /* mayusculas */
-  letter-spacing: .04em; /* espaciado entre letras */
+.productos article:nth-child(2){
+  grid-column:span 2;
+}
+/* Cada tarjeta es un contenedor flex en columna;
+   su ancho lo da la columna del grid. */
+
+article{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+
+  background:#fff;
+  border:1px solid #d2d2d7;
+  border-radius:12px;
+  padding:1rem;
+  text-align:center;
 }
 
-button {
-  background: #0066cc;   /* fondo de marca */
-  color: #fff;           /* texto blanco */
-  border: 0;             /* sin borde */
-  border-radius: 999px;  /* forma pildora */
-  padding: .5rem 1rem;   /* espacio interno */
-  cursor: pointer;       /* cursor de mano */
-}
-button:hover { filter: brightness(1.1); }  /* se aclara al pasar el mouse */
+/* ========================================== */
+/* TAREA 3 - Tarjeta destacada ocupa 2 x 2 */
+/* ========================================== */
 
-.destacado {
-  border-color: #0066cc; /* borde azul */
-  border-width: 2px;     /* borde mas grueso */
+.destacado{
+  border-color:#0066cc;
+  border-width:2px;
+
+  grid-column:span 2;
+  grid-row:span 2;
+
+  justify-content:space-between;
 }
 
-#compra {
-  background: #fff;      /* fondo */
-  border-radius: 12px;   /* esquinas redondeadas */
-  padding: 1.5rem;       /* espacio interno */
-  margin-top: 2rem;      /* separacion superior */
+article img{
+  width:100%;
+  aspect-ratio:1;
+  object-fit:contain;
 }
+
+article h3{
+  font-size:1rem;
+  margin:.5rem 0 .25rem;
+}
+
+article strong{
+  color:#0a7d2c;
+  font-size:1.1rem;
+}
+
+figure{
+  margin:0;
+}
+
+figcaption{
+  color:#6e6e73;
+  font-size:.75rem;
+  text-transform:uppercase;
+  letter-spacing:.04em;
+}
+
+button{
+  background:#0066cc;
+  color:#fff;
+  border:0;
+  border-radius:999px;
+  padding:.5rem 1rem;
+  cursor:pointer;
+}
+
+button:hover{
+  filter:brightness(1.1);
+}
+
+/* ================================================= */
+/* FORMULARIO DE COMPRA */
+/* ================================================= */
+
+#compra{
+  background:#fff;
+  border-radius:12px;
+  padding:1.5rem;
+}
+
+/* ============================== */
+/* TAREA 5 - Formulario en Grid */
+/* ============================== */
+
+#compra form{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+/* Los fieldset quedan uno al lado del otro */
+
+fieldset{
+  border:1px solid #d2d2d7;
+  border-radius:10px;
+  padding:1rem;
+  margin:0;
+}
+
+legend{
+  font-weight:600;
+  padding:0 .4rem;
+}
+
+/* El botón ocupa las dos columnas */
+
+#compra form button{
+  grid-column:1 / -1;
+  justify-self:center;
+}
+
 #compra input,
 #compra select,
-#compra textarea {
-  width: 100%;           /* ancho completo */
-  padding: .5rem;        /* espacio interno */
-  border: 1px solid #d2d2d7; /* borde */
-  border-radius: 8px;    /* esquinas redondeadas */
-  margin-top: .25rem;    /* separacion superior */
+#compra textarea{
+  width:100%;
+  padding:.5rem;
+  border:1px solid #d2d2d7;
+  border-radius:8px;
+  margin-top:.25rem;
 }
-fieldset { border: 1px solid #d2d2d7; border-radius: 10px; margin-bottom: 1rem; padding: 1rem; } /* marco del grupo */
-legend { font-weight: 600; padding: 0 .4rem; }  /* titulo del grupo */
 
-footer {
-  text-align: center;    /* centrado */
-  color: #6e6e73;        /* color tenue */
-  margin-top: 2rem;      /* separacion superior */
-  font-size: .85rem;     /* tamaño pequeño */
+/* ================================================= */
+/* FOOTER */
+/* ================================================= */
+
+footer{
+  text-align:center;
+  color:#6e6e73;
+  margin-top:2rem;
+  font-size:.85rem;
+}
+
+/* ================================================= */
+/* BONUS RESPONSIVE */
+/* ================================================= */
+
+@media (max-width:768px){
+
+  main{
+    grid-template-columns:1fr;
+
+    grid-template-areas:
+      "catalogo"
+      "promo"
+      "compra";
+  }
+
+  .productos article:nth-child(2){
+    grid-column:span 1;
+  }
+
+  .destacado{
+    grid-column:span 1;
+    grid-row:span 1;
+  }
+
+  #compra form{
+    grid-template-columns:1fr;
+  }
+
+  #compra form button{
+    grid-column:auto;
+  }
 }
