@@ -14,6 +14,8 @@
   --texto-suave: #6e6e73;  /* texto secundario */
   --borde: #d2d2d7;        /* bordes */
   --precio: #0a7d2c;       /* verde del precio */
+  --radio: 12px;
+  --espacio: 1rem;
 }
 
 /* La misma paleta en versión nocturna: mismos nombres, otros valores.
@@ -27,6 +29,7 @@
     --texto-suave: #a1a1a6;
     --borde: #3a3a3c;
     --precio: #30d158;       /* el verde también aclara, o queda casi invisible */
+  
   }
 }
 
@@ -37,7 +40,7 @@ body {
   background: var(--fondo);   /* color de fondo */
   max-width: 900px;      /* ancho maximo */
   margin: 0 auto;        /* centra la pagina */
-  padding: 1rem;         /* espacio interno */
+  padding: var(--espacio);        /* espacio interno */
   line-height: 1.5;      /* alto de linea */
   display: grid;
   grid-template-columns: 220px 1fr;   /* lateral fija, contenido con el resto */
@@ -60,7 +63,10 @@ header {
   gap: 1rem;                      /* separacion entre logo y menu */
   background: var(--tarjeta);     /* fondo */
   padding: 1rem 1.25rem;          /* espacio interno */
-  border-radius: 12px;            /* esquinas redondeadas */
+  border-radius: var(--radio);          /* esquinas redondeadas */
+  position:sticky;
+  top:0;
+  z-index:1000;
 }
 header h1 { color: var(--marca); margin: 0; }   /* color de marca; sin margen */
 
@@ -112,8 +118,8 @@ article {
   align-items: center;      /* centrados en horizontal (en columna, el eje cruzado) */
   background: var(--tarjeta);      /* fondo */
   border: 1px solid var(--borde);  /* borde */
-  border-radius: 12px;      /* esquinas redondeadas */
-  padding: 1rem;            /* espacio interno */
+  border-radius: var(--radio);      /* esquinas redondeadas */
+  padding: var(--espacio);            /* espacio interno */
   text-align: center;       /* centra el texto */
   transition: transform .2s ease, box-shadow .2s ease;  /* la transicion vive en el estado BASE */
 }
@@ -125,11 +131,17 @@ article img {
   width: 100%;           /* ocupa el ancho de la tarjeta */
   aspect-ratio: 1;       /* caja cuadrada */
   object-fit: contain;   /* imagen entera, sin deformar */
+  transition: transform .3s ease;
+}
+article:hover img{
+  transform:scale(1.05);
 }
 article h3 { font-size: 1rem; margin: .5rem 0 .25rem; }   /* tamaño y margenes */
 article strong { color: var(--precio); font-size: 1.1rem; }  /* el precio resalta */
 
-figure { margin: 0; }    /* sin margenes */
+figure { margin: 0; 
+  overflow:hidden;
+}    /* sin margenes */
 figcaption {
   color: var(--texto-suave); /* color tenue */
   font-size: .75rem;         /* tamaño pequeño */
@@ -164,7 +176,7 @@ button:active {
 /* ----- Formulario de compra: dos columnas con Grid ----- */
 #compra {
   background: var(--tarjeta); /* fondo */
-  border-radius: 12px;        /* esquinas redondeadas */
+  border-radius: var(--radio);        /* esquinas redondeadas */
   padding: 1.5rem;            /* espacio interno */
   margin-top: 2rem;           /* separacion superior */
 }
@@ -185,6 +197,8 @@ button:active {
   border: 1px solid var(--borde); /* borde */
   border-radius: 8px;    /* esquinas redondeadas */
   margin-top: .25rem;    /* separacion superior */
+    background: var(--tarjeta);
+  color: var(--texto);
 }
 fieldset { border: 1px solid var(--borde); border-radius: 10px; margin-bottom: 1rem; padding: 1rem; } /* marco del grupo */
 legend { font-weight: 600; padding: 0 .4rem; }  /* titulo del grupo */
@@ -248,4 +262,10 @@ footer ul { list-style: none; padding: 0; margin: 0; }  /* lista limpia */
 
   /* 7) La franja de beneficios, a una columna */
   .beneficios { grid-template-columns: 1fr; }
+
+   .lateral ul {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
 }
