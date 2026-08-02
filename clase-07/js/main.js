@@ -60,3 +60,30 @@ const inventarioPrecio = productos
 
 console.log(enOferta);
 console.log(inventarioPrecio);
+
+
+
+// FÁCIL: Solo los nombres: con map, un array con el nombre de cada producto.
+const nombresProductos = productos.map(producto => producto.nombre);
+
+// INTERMEDIO: Ofertas en stock (precio < $600 y con stock)
+const ofertasEnStock = productos.filter(producto => producto.precio < 600 && producto.stock > 0);
+
+// INTERMEDIO: El producto más caro
+const productoMasCaro = productos.reduce((max, producto) => 
+  producto.precio > max.precio ? producto : max
+);
+
+// DIFÍCIL: Total de la categoría 'smartphones' en stock
+const totalSmartphonesEnStock = productos
+  .filter(producto => producto.categoria === 'smartphones' && producto.stock > 0)
+  .reduce((total, producto) => total + (producto.precio * producto.stock), 0);
+
+// DIFÍCIL: Resumen del carrito
+function resumenCarrito(items) {
+  return items.reduce((resumen, item) => {
+    resumen.cantidad += item.cantidad;
+    resumen.total += item.precio * item.cantidad;
+    return resumen;
+  }, { cantidad: 0, total: 0 });
+}
