@@ -11,6 +11,66 @@ const productos = [
   { nombre: "AirPods Max",    precio: 549.99,  categoria: "audio",       stock: 3 },
 ]
 
+
+/ --- Tarea 1: Formatear precios con map ---
+const formatearPrecio = (precio) => `$${precio.toFixed(2)}`;
+const productosFormateados = productos.map(
+  ({ nombre, categoria, precio }) => `${nombre} · ${categoria} · ${formatearPrecio(precio)}`
+);
+
+// --- Tarea 2: Aplicar descuento (Inmutable) ---
+function aplicarDescuento(producto, pct = 10) {
+  return {
+    ...producto,
+    precio: producto.precio * (1 - pct / 100)
+  };
+}
+
+// --- Tarea 3: Buscar por nombre ---
+function buscarPorNombre(items, nombre) {
+  const encontrado = items.find(
+    (item) => item.nombre.toLowerCase() === nombre.toLowerCase()
+  );
+  const nombreProd = encontrado?.nombre ?? "No lo tenemos";
+  const precioProd = encontrado?.precio ?? 0;
+
+  return `${nombreProd} · $${precioProd.toFixed(2)}`;
+}
+
+// --- Tarea 4: Formato de catálogo y resumen de stock ---
+function listaCatalogo(items) {
+  return items
+    .map(({ nombre, categoria, precio }) => `${nombre} · ${categoria} · $${precio.toFixed(2)}`)
+    .join("\n");
+}
+
+function resumenStock(items) {
+  const total = items.length;
+  const agotados = items.filter((item) => item.stock === 0).length;
+  return `${total} productos, ${agotados} agotado${agotados !== 1 ? 's' : ''}`;
+}
+
+// --- Tarea 5: Carrito y Resumen con IGV ---
+function agregarAlCarrito(carrito, producto) {
+  return [...carrito, producto];
+}
+
+function resumenCarrito(carrito) {
+  const cantidad = carrito.length;
+  const subtotal = carrito.reduce((acc, item) => acc + item.precio, 0);
+  const igv = subtotal * 0.18;
+  const total = subtotal + igv;
+
+  return {
+    cantidad,
+    subtotal: Number(subtotal.toFixed(2)),
+    igv: Number(igv.toFixed(2)),
+    total: Number(total.toFixed(2))
+  };
+}
+
+
+
 // Ejercicio 3 de la Clase 7: agregar un quinto producto y leer el catálogo.
 productos.push({ nombre: "Apple Watch", precio: 399.99, categoria: "audio", stock: 6 })
 
