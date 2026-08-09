@@ -47,3 +47,18 @@ git push
 ```
 
 Siguiente clase: [Clase 2. Introducción a CSS](../clase-02/README.md)
+
+## Tareas para casa
+
+Cinco tareas graduadas, todas **solo con HTML** (sin CSS y sin JavaScript). La fácil es para todos; las
+difíciles piden investigar. La que nadie logre se resuelve al inicio de la Clase 2.
+
+| Nivel | Tarea |
+|---|---|
+| **Fácil** | **Un sexto producto**: copia un `<article>` completo — su `<figure>`, su `<img>` con `alt` bien escrito, su `<figcaption>`, nombre, precio y botón. Si el `alt` queda vacío, no vale. |
+| **Intermedia 1** | **La página "Nosotros"**: termina `nosotros.html` con su estructura semántica completa (`header`, `nav`, `main`, `section`, `footer`) y **enlázala desde el `<nav>`** de las dos páginas, para poder ir y volver. |
+| **Intermedia 2** | **Dos campos que el navegador valide solo**: un **teléfono** con `type="tel"` y un `pattern` de solo dígitos, y una **fecha de entrega** con `type="date"`. Intenta enviar con el teléfono mal escrito y comprueba que el navegador te frena sin JavaScript. |
+| **Difícil 1** | **Datos de facturación**: un `<fieldset>` con su `<legend>` y dos campos — **empresa** (opcional, sin `required`) y **RUC** (obligatorio, 11 dígitos exactos). Pista: `pattern="[0-9]{11}"`. Prueba que con 10 dígitos no te deja enviar. |
+| **Difícil 2** | **Preguntas frecuentes sin JavaScript**: investiga `<details>` y `<summary>` y arma tres preguntas que se **abran y cierren al hacer clic**, sin una línea de JS. |
+
+> Sube lo que hagas a GitHub: `git add .` → `git commit -m "clase 1"` → `git push`.

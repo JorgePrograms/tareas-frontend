@@ -37,10 +37,17 @@ Propiedades:
 
 Para practicar selectores jugando: https://flukeout.github.io
 
-## Retos
+## Tareas
 
-1. Paleta propia: cambia el color de acento de la tienda (título, botones, `.destacado`, enlaces).
-2. Tarjetas con vida: investiga `box-shadow` y un `:hover` con `transform` que las eleve.
-3. Footer con estilo: estiliza el `footer` (hoy sin diseño) usando box model y centra su contenido.
+Cinco tareas graduadas, todas con lo de esta clase: selectores, especificidad y box model. La fácil es
+para todos; la que nadie logre se resuelve al inicio de la Clase 3.
+
+| Nivel | Tarea |
+|---|---|
+| **Fácil** | **La barra de categorías**: el `<aside>` todavía se ve como texto suelto. Dale `background`, `padding` para que respire por dentro, y separa sus enlaces con `margin`. Solo box model. |
+| **Intermedia 1** | **Paleta propia**: cambia el color de acento de toda la tienda (título, botones, `.destacado`, enlaces) a una identidad tuya. Es cambiar el mismo color en varios lugares — y en la Clase 5 verás cómo hacerlo en un solo sitio con variables. |
+| **Intermedia 2** | **Footer con estilo**: el pie de página quedó sin diseño a propósito. Estilízalo solo con box model —`padding`, `margin`— y centra su contenido. |
+| **Difícil 1** | **Tarjetas con vida**: investiga dos propiedades nuevas: `box-shadow` para darles sombra, y `transform` junto con `:hover` para que la tarjeta se eleve al pasar el mouse. Pista: `transform: translateY(-4px)`. |
+| **Difícil 2** | **Ganarle a la especificidad**: escribe **tres** reglas que apunten al mismo título de una tarjeta —una por etiqueta (`h3`), una por clase (`.titulo`) y una por id (`#destacado h3`)—, cada una con un color distinto. Antes de refrescar, anota en un comentario cuál crees que gana. Compruébalo en DevTools: verás las reglas perdedoras **tachadas**. Y después, el verdadero reto: logra que gane el color de la **clase**, sin usar `!important`. |
 
 Clase anterior: [Clase 1. La web y el HTML](../clase-01/README.md)

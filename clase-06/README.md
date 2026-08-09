@@ -64,4 +64,18 @@ cada utilidad con el CSS que ustedes mismos escribieron.
 - **`group`** — para que el hover de un elemento afecte a un hijo (el zoom de imagen).
 - **play.tailwindcss.com** — un editor de Tailwind en línea para experimentar sin instalar nada.
 
+
+## Tareas
+
+Cinco tareas graduadas, todas con Tailwind. La fácil es para todos; la que nadie logre se resuelve al
+inicio de la Clase 7.
+
+| Nivel | Tarea |
+|---|---|
+| **Fácil** | **Los enlaces en azul de marca**: termina los enlaces del menú y del pie con utilidades de color (`text-marca`) y su `hover:`. |
+| **Intermedia 1** | **El footer, a Tailwind**: traduce la regla `footer` de la Clase 5 a utilidades, sin escribir CSS. |
+| **Intermedia 2** | **El formulario responsive**: que el formulario de compra pase de una a dos columnas con prefijos de pantalla (`md:`). |
+| **Difícil 1** | **El zoom de imagen con `group`**: al pasar el mouse por la **tarjeta**, la **imagen** hace zoom. Pistas: `group` en el padre, `group-hover:scale-105` en la imagen, y `overflow-hidden` para que no se salga. |
+| **Difícil 2** | **La tienda entera en modo oscuro sin repetir `dark:`**: haz que los tokens de `@theme` cambien de valor dentro de un `@media (prefers-color-scheme: dark)`, y que todas las utilidades los sigan solas. |
+
 > Basado en el proyecto de referencia TechCart. Datos e imágenes de [DummyJSON](https://dummyjson.com).

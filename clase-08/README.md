@@ -97,4 +97,23 @@ clase-08/
 > arregla en la **Clase 11 con TypeScript**. Todo lo de hoy es la base sobre la que se apoya: los
 > tipos no cambian esta sintaxis, la **anotan**.
 
+
+## Tareas
+
+Cinco tareas graduadas sobre los módulos de esta clase. Las dos difíciles son las dos mitades de lo que
+viene después, así que quien las haga llega leyendo.
+
+| Nivel | Tarea |
+|---|---|
+| **Fácil** | **El catálogo en texto**: con `map` y un template literal, imprime una línea por producto así: `"AirPods Max · audio · S/ 549.99"`. Desestructura en el parámetro de la arrow y usa `formatearPrecio`. |
+| **Intermedia 1** | **Rebajar sin romper**: en `carrito.js`, exporta `aplicarDescuento(producto, porcentaje = 10)` que devuelva una **copia** del producto con el precio rebajado. Úsala con dos productos e imprime después el precio **original** de ambos, para demostrar que no cambiaron. |
+| **Intermedia 2** | **Buscar sin caerse**: exporta `buscarPorNombre(items, nombre)` con `find`. Imprime nombre y precio con template literal, usando `?.` y `??` para que cuando no exista salga `"No lo tenemos · S/ 0.00"` en vez de un error rojo. |
+| **Difícil 1** | **El módulo de la vista**: en `ui.js`, agrega `fichaProducto(producto)` (template literal **multilínea**) y `resumenStock(items)`, que devuelva un texto tipo `"5 productos, 1 agotado"` — el conteo con `filter` y el "hay agotados" con `some`. |
+| **Difícil 2** | **El carrito de verdad**: en `carrito.js`, `agregarAlCarrito(carrito, producto)` que devuelva un **carrito nuevo** (spread, sin `push`), y `resumenCarrito(items)` que devuelva `{ cantidad, subtotal, igv, total }` con **propiedades abreviadas**. Empieza con `[]`, agrega tres productos, imprime el resumen y comprueba que el carrito original sigue vacío. |
+
+> Y la que quedó del taller: **`contarPorCategoria(items)`** — un `reduce` cuyo acumulador es un
+> **objeto**, que devuelva `{ laptops: 1, smartphones: 1, tablets: 1, audio: 2 }`. Pista: el valor
+> inicial es `{}` y adentro va `{ ...acc, [p.categoria]: (acc[p.categoria] ?? 0) + 1 }`. Esos corchetes
+> hacen que JavaScript **evalúe** el nombre de la propiedad.
+
 > Basado en el proyecto de referencia TechCart. Datos e imágenes de [DummyJSON](https://dummyjson.com).

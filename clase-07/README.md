@@ -54,4 +54,18 @@ solo cambia cómo se escribe. El foco está en la **sintaxis nueva** y en el cor
 - **playcode.io** — un playground gratis para escribir JavaScript y verlo correr sin instalar
   nada. Aunque, para lo de hoy, la consola del navegador es el mejor laboratorio.
 
+
+## Tareas
+
+Cinco tareas graduadas, todas sobre el array `productos` de esta clase — así se afianzan `map`, `filter`
+y `reduce`, que son el músculo del resto del curso. La fácil es para todos.
+
+| Nivel | Tarea |
+|---|---|
+| **Fácil** | **Solo los nombres**: con `map`, crea un array `catalogo` que tenga solo el nombre de cada producto, e imprímelo. Es un `map` de una línea. |
+| **Intermedia 1** | **Ofertas en stock**: con `filter`, arma un array con los productos que cuestan **menos de 600 Y tienen stock**. Pista: dos condiciones con `&&` dentro de la misma arrow. |
+| **Intermedia 2** | **El más caro**: con `reduce`, encuentra el producto de mayor precio. Pista: el acumulador es "el más caro hasta ahora"; el valor inicial puede ser `productos[0]`. |
+| **Difícil 1** | **Total de una categoría**: de los productos de la categoría `"smartphones"` **que tengan stock**, calcula el valor total (`precio × stock`). Es `filter` + `reduce` encadenados. |
+| **Difícil 2** | **El resumen del carrito**: una función `resumenCarrito(items)` que reciba un array de productos y devuelva un **objeto** con `cantidad` (cuántos hay) y `total` (la suma de sus precios). Este objeto es, literalmente, lo que mostrará el carrito en unas clases. |
+
 > Basado en el proyecto de referencia TechCart. Datos e imágenes de [DummyJSON](https://dummyjson.com).

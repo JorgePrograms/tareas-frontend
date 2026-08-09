@@ -1,3 +1,8 @@
 .DS_Store
 Thumbs.db
 *.log
+
+# Desde la Clase 12 (TypeScript) el proyecto usa npm:
+# las dependencias y el compilado NO se versionan.
+node_modules/
+dist/

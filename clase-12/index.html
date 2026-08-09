@@ -1,7 +1,16 @@
 <!DOCTYPE html>
 <!--
-  Clase 7 — TechCart re-vestida con Tailwind CSS v4 (estado FINAL de la clase).
-  Qué cambió respecto a la Clase 5:
+  ===== PUNTO DE PARTIDA DE LA CLASE 12 (TypeScript) =====
+  El HTML tal como quedó cuando se cortó la Clase 11 (3:25): la barra lateral filtra,
+  hay buscador, hay aviso de respaldo y el catálogo lo pinta JavaScript.
+
+  Lo que se le agrega EN CLASE (Clase 12):
+    Bloque 1 → id="confirmar" en el botón del formulario           (JavaScript)
+    Bloque 3 → el <script> pasa a apuntar a dist/main.js           (¡ojo con este!)
+    Bloque 7 → id="checkout" en el <form> y <p id="aviso-pedido">  (TypeScript)
+
+  El estilo viene de la Clase 6 (Tailwind v4 en utilidades + tokens con @theme):
+  qué cambió respecto a la Clase 5:
     1) el estilo vive ahora en UTILIDADES en el HTML (flex, gap-4, bg-tarjeta…);
     2) los colores son TOKENS declarados con @theme (bg-marca, text-precio…),
        y el modo oscuro solo cambia el valor de esos tokens (sin un solo dark:);
@@ -56,16 +65,22 @@
         <li><a href="#compra" class="text-marca no-underline hover:underline">Comprar</a></li>
       </ul>
     </nav>
+    <!-- El resumen del carrito lo escribe JavaScript (pintarCarrito). Clase 10. -->
+    <p class="m-0 font-semibold" id="resumen-carrito">🛒 0 productos · S/ 0.00</p>
   </header>
 
   <!-- ===== BARRA LATERAL ===== -->
+  <!-- El data-categoria es para la MÁQUINA; el texto del enlace, para la PERSONA.
+       Por eso "Audio" vale "mobile-accessories": si marketing cambia el texto,
+       el código no se entera. -->
   <aside class="lateral">
     <h2 class="text-xl font-semibold">Categorías</h2>
-    <ul class="list-none p-0 m-0">
-      <li><a href="#" class="text-marca no-underline hover:underline">Laptops</a></li>
-      <li><a href="#" class="text-marca no-underline hover:underline">Teléfonos</a></li>
-      <li><a href="#" class="text-marca no-underline hover:underline">Tablets</a></li>
-      <li><a href="#" class="text-marca no-underline hover:underline">Audio</a></li>
+    <ul id="categorias" class="list-none p-0 m-0">
+      <li><a href="#" data-categoria="todas" class="text-marca no-underline hover:underline">Todas</a></li>
+      <li><a href="#" data-categoria="laptops" class="text-marca no-underline hover:underline">Laptops</a></li>
+      <li><a href="#" data-categoria="smartphones" class="text-marca no-underline hover:underline">Teléfonos</a></li>
+      <li><a href="#" data-categoria="tablets" class="text-marca no-underline hover:underline">Tablets</a></li>
+      <li><a href="#" data-categoria="mobile-accessories" class="text-marca no-underline hover:underline">Audio</a></li>
     </ul>
   </aside>
 
@@ -93,61 +108,28 @@
 
     <!-- Catálogo: grid responsive con prefijos (1 / 2 / 3 columnas) -->
     <section id="catalogo">
-      <h2 class="text-2xl font-semibold mb-4">Catálogo de productos</h2>
+      <h2 id="titulo-catalogo" class="text-2xl font-semibold mb-4">Catálogo de productos</h2>
+
+      <!-- Solo se muestra cuando la API falló y estamos con el plan B (Clase 11) -->
+      <p id="aviso-respaldo" hidden
+         class="bg-tarjeta border border-borde rounded-lg p-3 mb-4 text-sm text-texto-suave"></p>
+
+      <!-- type="search" trae la ✕ para limpiar gratis y cambia el teclado en el celular -->
+      <input type="search" id="buscador" placeholder="Buscar en el catálogo…"
+             class="w-full md:w-80 p-2 border border-borde rounded-md mb-4 bg-tarjeta text-texto" />
 
       <div class="productos grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8">
-
-        <!-- Destacada: la misma .card + utilidades propias (borde grueso y 2 columnas) -->
-        <article class="card group border-2 border-marca md:col-span-2">
-          <figure class="overflow-hidden rounded-lg m-0">
-            <img src="https://cdn.dummyjson.com/product-images/laptops/apple-macbook-pro-14-inch-space-grey/thumbnail.webp"
-                 alt="MacBook Pro 14 pulgadas gris espacial"
-                 class="w-full aspect-square object-contain transition group-hover:scale-105" />
-            <figcaption class="text-texto-suave text-xs uppercase tracking-wide">Apple</figcaption>
-          </figure>
-          <h3 class="text-base font-semibold mt-2 mb-1">MacBook Pro 14"</h3>
-          <p class="m-0"><strong class="text-precio text-lg font-bold">$1,999.99</strong></p>
-          <button type="button" class="btn mt-2">Agregar al carrito</button>
-        </article>
-
-        <article class="card group">
-          <figure class="overflow-hidden rounded-lg m-0">
-            <img src="https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp"
-                 alt="iPhone 13 Pro"
-                 class="w-full aspect-square object-contain transition group-hover:scale-105" />
-            <figcaption class="text-texto-suave text-xs uppercase tracking-wide">Apple</figcaption>
-          </figure>
-          <h3 class="text-base font-semibold mt-2 mb-1">iPhone 13 Pro</h3>
-          <p class="m-0"><strong class="text-precio text-lg font-bold">$1,099.99</strong></p>
-          <button type="button" class="btn mt-2">Agregar al carrito</button>
-        </article>
-
-        <article class="card group">
-          <figure class="overflow-hidden rounded-lg m-0">
-            <img src="https://cdn.dummyjson.com/product-images/tablets/ipad-mini-2021-starlight/thumbnail.webp"
-                 alt="iPad Mini 2021"
-                 class="w-full aspect-square object-contain transition group-hover:scale-105" />
-            <figcaption class="text-texto-suave text-xs uppercase tracking-wide">Apple</figcaption>
-          </figure>
-          <h3 class="text-base font-semibold mt-2 mb-1">iPad Mini 2021</h3>
-          <p class="m-0"><strong class="text-precio text-lg font-bold">$499.99</strong></p>
-          <button type="button" class="btn mt-2">Agregar al carrito</button>
-        </article>
-
-        <article class="card group">
-          <figure class="overflow-hidden rounded-lg m-0">
-            <img src="https://cdn.dummyjson.com/product-images/mobile-accessories/apple-airpods-max-silver/thumbnail.webp"
-                 alt="AirPods Max plateados"
-                 class="w-full aspect-square object-contain transition group-hover:scale-105" />
-            <figcaption class="text-texto-suave text-xs uppercase tracking-wide">Apple</figcaption>
-          </figure>
-          <h3 class="text-base font-semibold mt-2 mb-1">AirPods Max</h3>
-          <p class="m-0"><strong class="text-precio text-lg font-bold">$549.99</strong></p>
-          <button type="button" class="btn mt-2">Agregar al carrito</button>
-        </article>
-
+        <!-- Las tarjetas las pinta JavaScript desde el array (js/ui.js) -->
       </div><!-- /.productos -->
     </section>
+
+    <!-- ===== EL CARRITO (Clase 10). La lista y el total los pinta pintarCarrito. ===== -->
+    <section id="carrito" class="bg-tarjeta rounded-xl p-6 mt-8">
+      <h2 class="text-2xl font-semibold mb-4">Tu carrito</h2>
+      <ul id="lista-carrito" class="list-none p-0 m-0"></ul>
+      <p id="total-carrito" class="font-bold mt-4"></p>
+    </section>
+
 
     <!-- Formulario de compra: grid responsive (1 / 2 columnas) -->
     <section id="compra" class="bg-tarjeta rounded-xl p-6 mt-8">
@@ -247,6 +229,6 @@
       <p>+51 999 999 999</p>
     </div>
   </footer>
-  <script defer src="js/main.js"></script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
