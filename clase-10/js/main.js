@@ -13,6 +13,20 @@ import { productos } from "./datos.js"
 import { resumenCarrito } from "./carrito.js"
 import formatearPrecio from "./formato.js"
 import { tarjetaProducto } from "./ui.js"
+import { obtenerProductos } from './datos.js';
+import { 
+  agregarAlCarrito, 
+  actualizarCantidad, 
+  eliminarDelCarrito, 
+  obtenerCarrito, 
+  obtenerTotalUnidades 
+} from './carrito.js';
+import { 
+  pintarCatalogo, 
+  pintarCarrito, 
+  mostrarAvisoRespaldo, 
+  actualizarTituloPestana 
+} from './ui.js';
 
 const contenedor = document.querySelector(".productos")
 
@@ -41,3 +55,89 @@ contenedor.addEventListener("click", (evento) => {
 })
 
 pintarCatalogo()
+
+let productosGlobales = [];
+
+function actualizarEstadoCarritoUI() {
+  const carritoActual = obtenerCarrito();
+  pintarCarrito(carritoActual);
+  actualizarTituloPestana(obtenerTotalUnidades());
+}
+
+async function inicializarApp() {
+  const { productos, esRespaldo } = await obtenerProductos();
+  productosGlobales = productos;
+
+  mostrarAvisoRespaldo(esRespaldo);
+  pintarCatalogo(productosGlobales);
+  actualizarEstadoCarritoUI();
+}
+
+// Tarea Intermedia 1: Filtrar por Categoría
+const listaCategorias = document.querySelector('#lista-categorias');
+if (listaCategorias) {
+  listaCategorias.addEventListener('click', (e) => {
+    const enlace = e.target.closest('[data-categoria]');
+    if (!enlace) return;
+
+    e.preventDefault();
+    const categoria = enlace.dataset.categoria;
+
+    const filtrados = categoria === 'todas'
+      ? productosGlobales
+      : productosGlobales.filter(p => p.categoria === categoria);
+
+    pintarCatalogo(filtrados);
+  });
+}
+
+// Tarea Difícil 1: Buscador en tiempo real
+const inputBuscador = document.querySelector('#buscador');
+if (inputBuscador) {
+  inputBuscador.addEventListener('input', (e) => {
+    const termino = e.target.value.toLowerCase().trim();
+
+    const resultados = productosGlobales.filter(p => 
+      p.nombre.toLowerCase().includes(termino)
+    );
+
+    pintarCatalogo(resultados, termino);
+  });
+}
+
+// Evento: Botón Agregar al carrito
+const contenedorCatalogo = document.querySelector('#catalogo');
+if (contenedorCatalogo) {
+  contenedorCatalogo.addEventListener('click', (e) => {
+    if (e.target.classList.contains('btn-agregar')) {
+      const id = Number(e.target.dataset.id);
+      const producto = productosGlobales.find(p => p.id === id);
+
+      if (producto) {
+        agregarAlCarrito(producto);
+        actualizarEstadoCarritoUI();
+      }
+    }
+  });
+}
+
+// Tarea Difícil 2: Controles del carrito (+, -, eliminar)
+const contenedorCarrito = document.querySelector('#lista-carrito');
+if (contenedorCarrito) {
+  contenedorCarrito.addEventListener('click', (e) => {
+    const id = Number(e.target.dataset.id);
+    if (!id) return;
+
+    if (e.target.classList.contains('btn-sumar')) {
+      actualizarCantidad(id, 1);
+    } else if (e.target.classList.contains('btn-restar')) {
+      actualizarCantidad(id, -1);
+    } else if (e.target.classList.contains('btn-eliminar')) {
+      eliminarDelCarrito(id);
+    }
+
+    actualizarEstadoCarritoUI();
+  });
+}
+
+document.addEventListener('DOMContentLoaded', inicializarApp);

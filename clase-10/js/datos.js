@@ -17,3 +17,30 @@ export const productos = [
   },
   { id: 5, nombre: "Apple Watch", precio: 399.99, categoria: "audio", stock: 6 },
 ]
+
+/**
+ * Tarea Intermedia 2: Carga productos e identifica si son datos de respaldo (Plan B)
+ */
+export async function obtenerProductos() {
+  try {
+    const respuesta = await fetch('https://api.ejemplo.com/productos');
+
+    if (!respuesta.ok) {
+      throw new Error(`Error HTTP: ${respuesta.status}`);
+    }
+
+    const productos = await respuesta.json();
+    return { productos, esRespaldo: false };
+
+  } catch (error) {
+    console.warn('Cargando catálogo desde respaldo...');
+
+    const productosRespaldo = JSON.parse(localStorage.getItem('productos_cache')) || [
+      { id: 1, nombre: 'Teclado Mecánico', categoria: 'tecnologia', precio: 150 },
+      { id: 2, nombre: 'Mouse Óptico', categoria: 'tecnologia', precio: 80 },
+      { id: 3, nombre: 'Polera Negra', categoria: 'ropa', precio: 120 }
+    ];
+
+    return { productos: productosRespaldo, esRespaldo: true };
+  }
+}
