@@ -158,3 +158,199 @@ console.log(categoria)   // "laptops"
 console.log(resto)       // { nombre, precio, stock }
 
 // --- Hasta aquí llegó la Clase 8. La Clase 9 sigue desde acá. ---
+
+// ==============================================================================
+// ===== DESARROLLO DE TAREAS CLASE 9 =====
+// ==============================================================================
+
+// 0. Le agregamos IDs a la lista de productos para la gestión del carrito por ID (Difícil 2)
+const productosConId = productos.map((p, index) => ({ id: index + 1, ...p }))
+
+// Estado global de la aplicación
+let carrito = []
+let categoriaSeleccionada = "todas"
+
+// ------------------------------------------------------------------------------
+// INTERMEDIA 2: Agrupar por categoría
+// ------------------------------------------------------------------------------
+const contarPorCategoria = (items) => {
+  return items.reduce((acc, p) => ({
+    ...acc,
+    [p.categoria]: (acc[p.categoria] ?? 0) + 1
+  }), {})
+}
+
+// Renderizar contadores en el HTML de la barra lateral
+const actualizarContadoresCategorias = () => {
+  const conteos = contarPorCategoria(productosConId)
+  
+  // Si tienes un elemento para "todas" o por cada categoría
+  Object.keys(conteos).forEach(cat => {
+    const elSpan = document.querySelector(`[data-categoria-count="${cat}"]`)
+    if (elSpan) {
+      elSpan.textContent = ` (${conteos[cat]})`
+    }
+  })
+}
+
+// ------------------------------------------------------------------------------
+// DIFÍCIL 1: Tema oscuro persistente (localStorage)
+// ------------------------------------------------------------------------------
+const initTemaOscuro = () => {
+  const btnTema = document.getElementById("btn-tema")
+  const temaGuardado = localStorage.getItem("theme")
+
+  // Si ya existía la preferencia en localStorage, la aplicamos
+  if (temaGuardado === "dark") {
+    document.documentElement.classList.add("dark")
+  }
+
+  if (btnTema) {
+    btnTema.addEventListener("click", () => {
+      // Toggle de la clase dark de Tailwind
+      document.documentElement.classList.toggle("dark")
+      
+      // Guardar el estado actual en localStorage
+      const esDark = document.documentElement.classList.contains("dark")
+      localStorage.setItem("theme", esDark ? "dark" : "light")
+    })
+  }
+}
+
+// ------------------------------------------------------------------------------
+// FÁCIL: Contador en la pestaña
+// DIFÍCIL 2: Carrito con cantidades e inmutabilidad
+// ------------------------------------------------------------------------------
+
+// Agregar al carrito (Intermedia 2 / Difícil 2)
+const agregarAlCarrito = (idProducto) => {
+  const prod = productosConId.find(p => p.id === idProducto)
+  if (!prod) return
+
+  const existe = carrito.find(item => item.id === idProducto)
+
+  if (existe) {
+    // Retorna array nuevo con el elemento copiado e incrementado (inmutable)
+    carrito = carrito.map(item =>
+      item.id === idProducto
+        ? { ...item, cantidad: item.cantidad + 1 }
+        : item
+    )
+  } else {
+    // Se agrega por primera vez con cantidad 1
+    carrito = [...carrito, { ...prod, cantidad: 1 }]
+  }
+
+  pintarCarrito()
+}
+
+// Cambiar cantidades (+ / -) o Eliminar por ID
+const cambiarCantidad = (idProducto, delta) => {
+  carrito = carrito
+    .map(item => {
+      if (item.id === idProducto) {
+        const nuevaCantidad = item.cantidad + delta
+        return nuevaCantidad > 0 ? { ...item, cantidad: nuevaCantidad } : null
+      }
+      return item
+    })
+    .filter(Boolean) // Elimina los que quedaron en null (cantidad 0)
+
+  pintarCarrito()
+}
+
+// Eliminar producto directamente por ID
+const eliminarDelCarrito = (idProducto) => {
+  carrito = carrito.filter(item => item.id !== idProducto)
+  pintarCarrito()
+}
+
+// Función central para repintar la UI del carrito y la pestaña
+const pintarCarrito = () => {
+  const totalProductos = carrito.reduce((sum, item) => sum + item.cantidad, 0)
+  
+  // Tarea Fácil: Actualizar el título de la pestaña del navegador
+  document.title = `Carrito (${totalProductos}) - Mi Tienda`
+
+  const contenedorCarrito = document.getElementById("lista-carrito")
+  if (!contenedorCarrito) return
+
+  contenedorCarrito.innerHTML = ""
+
+  carrito.forEach(item => {
+    const li = document.createElement("li")
+    li.className = "flex justify-between items-center py-2 border-b"
+    li.innerHTML = `
+      <div>
+        <p class="font-bold">${item.nombre}</p>
+        <p class="text-sm">S/ ${item.precio.toFixed(2)} × ${item.cantidad}</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="cambiarCantidad(${item.id}, -1)" class="px-2 bg-gray-200 dark:bg-gray-700 rounded">-</button>
+        <span>${item.cantidad}</span>
+        <button onclick="cambiarCantidad(${item.id}, 1)" class="px-2 bg-gray-200 dark:bg-gray-700 rounded">+</button>
+        <button onclick="eliminarDelCarrito(${item.id})" class="text-red-500 font-bold ml-2">×</button>
+      </div>
+    `
+    contenedorCarrito.appendChild(li)
+  })
+}
+
+// ------------------------------------------------------------------------------
+// INTERMEDIA 1: Filtrar por categoría (Delegación de eventos)
+// ------------------------------------------------------------------------------
+const pintarCatalogo = (listaProductos) => {
+  const contenedorCatalogo = document.getElementById("catalogo")
+  if (!contenedorCatalogo) return
+
+  contenedorCatalogo.innerHTML = ""
+
+  listaProductos.forEach(p => {
+    const card = document.createElement("div")
+    card.className = "p-4 border rounded shadow-sm bg-white dark:bg-gray-800"
+    card.innerHTML = `
+      <h3 class="font-bold text-lg">${p.nombre}</h3>
+      <p class="text-sm text-gray-500">${p.categoria}</p>
+      <p class="font-semibold my-2">S/ ${p.precio.toFixed(2)}</p>
+      <button 
+        onclick="agregarAlCarrito(${p.id})"
+        class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 ${p.stock === 0 ? 'opacity-50 cursor-not-allowed' : ''}"
+        ${p.stock === 0 ? 'disabled' : ''}
+      >
+        ${p.stock > 0 ? 'Agregar' : 'Agotado'}
+      </button>
+    `
+    contenedorCatalogo.appendChild(card)
+  })
+}
+
+const initFiltroCategorias = () => {
+  const ulCategorias = document.getElementById("lista-categorias")
+  if (!ulCategorias) return
+
+  // Delegación de eventos en el <ul>
+  ulCategorias.addEventListener("click", (e) => {
+    const enlace = e.target.closest("[data-categoria]")
+    if (!enlace) return
+
+    e.preventDefault()
+    categoriaSeleccionada = enlace.dataset.categoria
+
+    const filtrados = categoriaSeleccionada === "todas"
+      ? productosConId
+      : productosConId.filter(p => p.categoria === categoriaSeleccionada)
+
+    pintarCatalogo(filtrados)
+  })
+}
+
+// ------------------------------------------------------------------------------
+// Inicialización al cargar el documento
+// ------------------------------------------------------------------------------
+document.addEventListener("DOMContentLoaded", () => {
+  initTemaOscuro()
+  pintarCatalogo(productosConId)
+  pintarCarrito()
+  initFiltroCategorias()
+  actualizarContadoresCategorias()
+})

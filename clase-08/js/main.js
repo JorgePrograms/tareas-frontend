@@ -16,22 +16,23 @@ const productos = [
   { nombre: "AirPods Max",    precio: 549.99,  categoria: "audio",       stock: 3 },
 ]
 
+// --- FORMATO ---
+const formatearPrecio = (precio) => `S/ ${precio.toFixed(2)}`;
 
-/ --- Tarea 1: Formatear precios con map ---
-const formatearPrecio = (precio) => `$${precio.toFixed(2)}`;
+// --- Tarea 1 (Fácil): Catálogo en texto con map ---
 const productosFormateados = productos.map(
   ({ nombre, categoria, precio }) => `${nombre} · ${categoria} · ${formatearPrecio(precio)}`
 );
 
-// --- Tarea 2: Aplicar descuento (Inmutable) ---
-function aplicarDescuento(producto, pct = 10) {
+// --- Tarea 2 (Intermedia 1): Aplicar descuento (Inmutable) ---
+function aplicarDescuento(producto, porcentaje = 10) {
   return {
     ...producto,
-    precio: producto.precio * (1 - pct / 100)
+    precio: producto.precio * (1 - porcentaje / 100)
   };
 }
 
-// --- Tarea 3: Buscar por nombre ---
+// --- Tarea 3 (Intermedia 2): Buscar por nombre con ?. y ?? ---
 function buscarPorNombre(items, nombre) {
   const encontrado = items.find(
     (item) => item.nombre.toLowerCase() === nombre.toLowerCase()
@@ -39,23 +40,39 @@ function buscarPorNombre(items, nombre) {
   const nombreProd = encontrado?.nombre ?? "No lo tenemos";
   const precioProd = encontrado?.precio ?? 0;
 
-  return `${nombreProd} · $${precioProd.toFixed(2)}`;
+  return `${nombreProd} · S/ ${precioProd.toFixed(2)}`;
 }
 
-// --- Tarea 4: Formato de catálogo y resumen de stock ---
-function listaCatalogo(items) {
-  return items
-    .map(({ nombre, categoria, precio }) => `${nombre} · ${categoria} · $${precio.toFixed(2)}`)
-    .join("\n");
+// --- Tarea 4 (Difícil 1): Módulo UI / Vista ---
+function fichaProducto({ nombre, categoria, precio, stock }) {
+  return `
+--------------------------------
+PRODUCTO: ${nombre}
+CATEGORÍA: ${categoria}
+PRECIO: ${formatearPrecio(precio)}
+ESTADO: ${stock > 0 ? `En stock (${stock} un.)` : 'AGOTADO'}
+--------------------------------`;
 }
 
 function resumenStock(items) {
   const total = items.length;
   const agotados = items.filter((item) => item.stock === 0).length;
-  return `${total} productos, ${agotados} agotado${agotados !== 1 ? 's' : ''}`;
+  const hayAgotados = items.some((item) => item.stock === 0);
+
+  const detalleAgotados = hayAgotados 
+    ? `, ${agotados} agotado${agotados !== 1 ? 's' : ''}` 
+    : ', sin agotados';
+
+  return `${total} productos${detalleAgotados}`;
 }
 
-// --- Tarea 5: Carrito y Resumen con IGV ---
+function listaCatalogo(items) {
+  return items
+    .map(({ nombre, categoria, precio }) => `${nombre} · ${categoria} · S/ ${precio.toFixed(2)}`)
+    .join("\n");
+}
+
+// --- Tarea 5 (Difícil 2): Carrito de verdad y Resumen ---
 function agregarAlCarrito(carrito, producto) {
   return [...carrito, producto];
 }
@@ -73,7 +90,6 @@ function resumenCarrito(carrito) {
     total: Number(total.toFixed(2))
   };
 }
-
 
 
 // Ejercicio 3 de la Clase 7: agregar un quinto producto y leer el catálogo.
@@ -107,3 +123,40 @@ const rebajado = {...productos[0], hijos: {
 }};
 console.log(productos[0]);
 console.log(rebajado);
+
+
+// ==============================================================================
+// DEMOSTRACIONES Y PRUEBAS REQUERIDAS DE LAS TAREAS
+// ==============================================================================
+
+console.log("\n--- DEMOSTRACIÓN TAREA 1 ---");
+console.log(productosFormateados);
+
+console.log("\n--- DEMOSTRACIÓN TAREA 2 ---");
+const prod1 = productos[0];
+const prod2 = productos[1];
+
+const prod1Rebajado = aplicarDescuento(prod1, 10);
+const prod2Rebajado = aplicarDescuento(prod2, 20);
+
+console.log("Precio Rebajado P1:", prod1Rebajado.precio);
+console.log("Precio Rebajado P2:", prod2Rebajado.precio);
+console.log("Original P1 (Demuestra Inmutabilidad):", prod1.precio);
+console.log("Original P2 (Demuestra Inmutabilidad):", prod2.precio);
+
+console.log("\n--- DEMOSTRACIÓN TAREA 3 ---");
+console.log(buscarPorNombre(productos, "iPad Mini"));
+console.log(buscarPorNombre(productos, "PlayStation 5"));
+
+console.log("\n--- DEMOSTRACIÓN TAREA 4 ---");
+console.log(fichaProducto(productos[0]));
+console.log("Resumen de Stock:", resumenStock(productos));
+
+console.log("\n--- DEMOSTRACIÓN TAREA 5 ---");
+const carritoInicial = [];
+const c1 = agregarAlCarrito(carritoInicial, productos[0]);
+const c2 = agregarAlCarrito(c1, productos[1]);
+const carritoFinal = agregarAlCarrito(c2, productos[3]);
+
+console.log("Resumen del Carrito Final:", resumenCarrito(carritoFinal));
+console.log("¿El carrito inicial sigue estando vacío?:", carritoInicial.length === 0);
