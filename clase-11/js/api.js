@@ -34,3 +34,16 @@ export const obtenerProductos = async () => {
   const datos = await respuesta.json()
   return datos.products.map(mapearProducto)
 }
+
+
+export const obtenerProductoPorId = async (id) => {
+  const respuesta = await fetch(`${BASE}/products/${id}`)
+  if (!respuesta.ok) {
+    throw new Error(`No se pudo obtener el detalle (${respuesta.status})`)
+  }
+  const p = await respuesta.json()
+  return {
+    ...mapearProducto(p),
+    descripcion: p.description
+  }
+}

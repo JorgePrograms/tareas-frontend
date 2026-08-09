@@ -108,6 +108,12 @@
     <section id="catalogo">
       <h2 class="text-2xl font-semibold mb-4">Catálogo de productos</h2>
 
+      <select id="select-orden" class="p-2 border border-borde rounded-md bg-tarjeta text-texto cursor-pointer">
+      <option value="">Ordenar por...</option>
+      <option value="precio-asc">Precio: menor a mayor</option>
+      <option value="precio-desc">Precio: mayor a menor</option>
+      <option value="rating">Mejor valorados</option>
+    </select>
       <div class="productos grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-8">
         <!-- Las tarjetas las pinta JavaScript desde el array (js/ui.js) -->
       </div><!-- /.productos -->

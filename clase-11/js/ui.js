@@ -51,5 +51,35 @@ export const filaCarrito = ({ nombre, precio }, indice) => `
 // Un mensaje que ocupa todo el ancho del grid del catálogo.
 // Sirve para los tres estados: cargando, error y vacío.
 export const aviso = (texto) => `
-  <p class="col-span-full text-center text-texto-suave py-8">${texto}</p>
+  <p class="col-span-full text-center text-texto-suave py-8">${texto}</p>`
+
+  export const botonCategoria = (categoria, total) => `
+  <button type="button" class="btn-categoria" data-cat="${categoria}">
+    ${categoria} (${total})
+  </button>
 `
+
+export const escaparTexto = (cadena) => {
+  const div = document.createElement("div")
+  div.textContent = cadena
+  return div.innerHTML
+}
+
+export const tarjetaPedido = (pedido) => {
+  const clienteLimpio = escaparTexto(pedido.cliente ?? "Cliente")
+  
+  const itemsHTML = (pedido.items ?? []).map(item => `
+    <li>${escaparTexto(item.nombre)} × ${item.cantidad ?? 1}</li>
+  `).join("")
+
+  return `
+    <details class="border border-borde p-3 rounded-lg mb-2 bg-tarjeta">
+      <summary class="cursor-pointer font-bold">
+        Pedido #${pedido.id} — ${clienteLimpio} | ${pedido.fecha} | Total: ${formatearPrecio(pedido.total)}
+      </summary>
+      <ul class="mt-2 pl-4 list-disc">
+        ${itemsHTML}
+      </ul>
+    </details>
+  `
+}
