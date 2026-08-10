@@ -6,24 +6,24 @@
 //   Bloque 4 → `{ ... }: Producto` en tarjetaProducto (y ahí salta el primer typo),
 //              `filaCarrito(item: ItemCarrito)` y `aviso(texto: string): string`.
 import formatearPrecio from "./formato.js"
-
+import { Producto, ItemCarrito, Pedido } from "./tipos";
 // Convierte cualquier texto en texto SEGURO para meter dentro de innerHTML.
 // Sin esto, lo que escribe el usuario en el buscador se EJECUTA (XSS).
-export const escaparTexto = (texto) => {
+export const escaparTexto = (texto: string) => {
   const caja = document.createElement("div")
   caja.textContent = texto     // textContent trata todo como TEXTO, nunca como HTML
   return caja.innerHTML        // y lo devuelve ya convertido: < se volvió &lt;
 }
 
 // Versión en texto, de la Clase 8.
-export const fichaProducto = ({ nombre, categoria, precio, stock }) => `
+export const fichaProducto = ({ nombre, categoria, precio, stock } : Producto) => `
   ${nombre}
   categoría: ${categoria}
   precio:    ${formatearPrecio(precio)}
   ${stock > 0 ? `En stock (${stock})` : "Agotado"}
 `
 
-export const tarjetaProducto = ({ id, nombre, precio, stock, imagen, marca, valoracion }) => `
+export const tarjetaProducto = ({ id, nombre, precio, stock, imagen, marca, valoracion }: Producto) => `
   <article class="card group" data-id="${id}">
     <figure class="w-full overflow-hidden rounded-lg m-0">
       ${imagen
@@ -42,7 +42,7 @@ export const tarjetaProducto = ({ id, nombre, precio, stock, imagen, marca, valo
 
 // Una fila del carrito. Ya NO necesita la posición: cada item se identifica por su id.
 // Muestra la cantidad, el precio multiplicado y los tres botones de acción.
-export const filaCarrito = ({ id, nombre, precio, cantidad }) => `
+export const filaCarrito = ({ id, nombre, precio, cantidad } : ItemCarrito) => `
   <li class="flex justify-between items-center border-b border-borde py-2">
     <span>${nombre}</span>
     <span class="flex gap-3 items-center">
@@ -57,6 +57,20 @@ export const filaCarrito = ({ id, nombre, precio, cantidad }) => `
 
 // Un mensaje que ocupa todo el ancho del grid del catálogo.
 // Sirve para los tres estados: cargando, error y vacío.
-export const aviso = (texto) => `
+export const aviso = (texto:string) => `
   <p class="col-span-full text-center text-texto-suave py-8">${texto}</p>
 `
+
+// --- Tarea 5: Renderizado de pedidos ---
+export const filaPedido = (pedido: Pedido): string => `
+  <div class="border border-borde rounded p-4 mb-3">
+    <div class="flex justify-between font-bold mb-2">
+      <span>Pedido #${pedido.id} - ${escaparTexto(pedido.cliente)}</span>
+      <span>${pedido.fecha}</span>
+    </div>
+    <ul class="text-sm mb-2 pl-4 list-disc">
+      ${pedido.items.map(i => `<li>${escaparTexto(i.nombre)} x${i.cantidad} (${formatearPrecio(i.precio * i.cantidad)})</li>`).join("")}
+    </ul>
+    <div class="text-right text-precio font-bold">Total: ${formatearPrecio(pedido.total)}</div>
+  </div>
+`;

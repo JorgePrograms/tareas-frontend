@@ -1,3 +1,4 @@
+
 // carrito.js — el archivo que PIENSA. No sabe que existe una pantalla.
 //
 // Estado al terminar la Clase 11 (Bloque 6): un ítem del carrito ya no es un
@@ -7,11 +8,13 @@
 // Lo que se le hace EN LA CLASE 12:
 //   Bloque 5 → `items: ItemCarrito[]`, `producto: Producto`, y el tipo de retorno.
 //              Ahí se ve que `ItemCarrito = Producto & { cantidad: number }`.
+
+import { Producto, ItemCarrito } from "./tipos";
 export const IGV = 0.18
 
 // Devuelve un carrito NUEVO con el producto agregado. Nunca modifica el que recibe.
 // Con el tope de stock del Ejercicio 4 de la Clase 11.
-export const agregarItem = (items, producto) => {
+export const agregarItem = (items: ItemCarrito[], producto: Producto) => {
   const existente = items.find(item => item.id === producto.id)
 
   // Caso 1: no estaba. Entra como copia del producto, con cantidad 1.
@@ -29,7 +32,7 @@ export const agregarItem = (items, producto) => {
 
 // Sube o baja la cantidad de UN item. Si llega a 0, el item sale del carrito:
 // bajar a cero ES quitar, así que la regla vive en un solo lugar.
-export const cambiarCantidad = (items, id, paso) =>
+export const cambiarCantidad = (items: ItemCarrito[], id: number, paso: number) =>
   items
     .map(item => {
       if (item.id !== id) return item
@@ -39,18 +42,30 @@ export const cambiarCantidad = (items, id, paso) =>
     .filter(item => item.cantidad > 0)
 
 // Volvió a quitarse por id: ahora cada id aparece UNA sola vez en el carrito.
-export const quitarItem = (items, id) => items.filter(item => item.id !== id)
+export const quitarItem = (items: ItemCarrito[], id: number) => items.filter(item => item.id !== id)
 
 // `cantidad` cuenta UNIDADES (no filas), y el subtotal multiplica por la cantidad.
-export const resumenCarrito = (items) => {
+export const resumenCarrito = (items: ItemCarrito[]) => {
   const cantidad = items.reduce((suma, item) => suma + item.cantidad, 0)
   const subtotal = items.reduce((suma, item) => suma + item.precio * item.cantidad, 0)
   const total = subtotal * (1 + IGV)
   return { cantidad, subtotal, total }
 }
 
-// De la Clase 8, todavía sin usar en la pantalla.
-export const conDescuento = (precio, porcentaje = 10) => precio * (1 - porcentaje / 100)
 
-export const masCaroDe = (items) =>
-  items.reduce((mayor, p) => (p.precio > mayor.precio ? p : mayor), items[0])
+// --- Tarea 1: Tipado de funciones sueltas ---
+// De la Clase 8, todavía sin usar en la pantalla.
+export const conDescuento = (precio: number, porcentaje: number = 10) => precio * (1 - porcentaje / 100)
+
+export const masCaroDe = (items: Producto[]) =>
+  items.reduce((mayor, p) => (p.precio > mayor.precio ? p : mayor), items[0]);
+
+
+
+// --- Tarea 3: contarPorCategoria ---
+export const contarPorCategoria = (productos: Producto[]): Record<string, number> => {
+  return productos.reduce<Record<string, number>>((acc, producto) => {
+    acc[producto.categoria] = (acc[producto.categoria] ?? 0) + 1;
+    return acc;
+  }, {});
+};
