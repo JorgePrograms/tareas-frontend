@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ejercicio 3 - La lista de deseos</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+    header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #ccc; padding-bottom: 1rem; }
+    .catalogo { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .tarjeta { border: 1px solid #ddd; padding: 1rem; border-radius: 8px; text-align: center; }
+    .btn-deseo { background: #f0f0f0; border: 1px solid #ccc; padding: 0.5rem 1rem; border-radius: 20px; cursor: pointer; margin-top: 0.5rem; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Tienda Tech</h1>
+    <h2 id="contador-deseos">Deseos: 0</h2>
+  </header>
+
+  <main class="catalogo" id="catalogo"></main>
+
+  <script src="./deseos.js"></script>
+</body>
+</html>
