@@ -11,37 +11,38 @@ ejercicios para practicar.
 3. Abre el código y resuelve los ejercicios (están dentro del propio código).
 4. Sube tus avances con `git add .`, `git commit` y `git push`.
 
-## Ruta del curso (21 clases)
+## Ruta del curso (24 clases)
 
-Construimos TechCart de a poco: primero HTML, luego CSS, luego JavaScript y por último React.
+Construimos TechCart de a poco: primero HTML, luego CSS, luego JavaScript, luego TypeScript
+y por último React.
 
-- 01. La web y el HTML: semántica y formularios *(disponible)*
+- 01. La web y el HTML: semántica y formularios
 
 **CSS**
 - 02. Introducción a CSS: selectores, especificidad y box model
 - 03. Flexbox
-- 04. CSS Grid + responsive
-- 05. Variables + transiciones + Tailwind + componentes
+- 04. CSS Grid
+- 05. Responsive: unidades, media queries, variables CSS, transiciones y modo oscuro
+- 06. Tailwind CSS + componentes reutilizables
 
 **JavaScript**
-- 06. JavaScript: variables, arrays, map/filter/reduce
-- 07. JavaScript moderno (ES6+): desestructuración, módulos, inmutabilidad
-- 08. DOM + eventos + localStorage
-- 09. Fetch + async/await (MVP vanilla)
+- 07. JavaScript: variables, arrays, map/filter/reduce
+- 08. JavaScript moderno (ES6+): desestructuración, módulos, inmutabilidad
+- 09. DOM + eventos + localStorage
+- 10. Fetch + promesas + async/await
+- 11. La tienda terminada: filtros, buscador, carrito con cantidades y checkout (MVP vanilla)
 
-**React**
-- 10. React + Vite + JSX
-- 11. Componentes + props + render condicional
-- 12. Listas + eventos + useState
-- 13. useEffect + ciclo de vida
-- 14. Consumo de API + estados de carga
-- 15. React Router
-- 16. Formularios controlados + custom hooks
-- 17. Context API + estado global
-- 18. JWT + rutas protegidas
-- 19. Optimización de componentes
-- 20. Despliegue en Vercel
-- 21. Proyecto final
+**TypeScript**
+- 12. TypeScript aplicado a TechCart: tipos, interfaces y las tres aduanas
+
+**React** (se dicta en TypeScript)
+
+El bloque de React continúa en un **repositorio nuevo**, con numeración propia: **clase 1 a 12
+de React** (React + Vite + JSX → componentes y props → estado y eventos → useEffect → API →
+Router → formularios → Context → JWT → optimización y despliegue). El enlace se comparte al
+empezar el bloque.
+
+El proyecto final se presenta en semanas aparte, después de la clase 12 de React.
 
 Cada clase se publica aquí después de la sesión, con su código y sus ejercicios. A veces un
 tema se continúa en la clase siguiente: si es así, empezamos con un repaso corto y seguimos.
