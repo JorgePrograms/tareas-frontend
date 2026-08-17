@@ -17,11 +17,13 @@
 // La forma del archivo, que no cambia: los datos arriba, las funciones que pintan
 // en el medio, los eventos abajo. Un evento nunca toca la pantalla: cambia un dato
 // y manda a pintar.
-import { Producto, ItemCarrito, EstadoCarga, Pedido } from "./tipos";
-import { resumenCarrito, agregarItem, cambiarCantidad, quitarItem, contarPorCategoria } from "./carrito";
-import formatearPrecio from "./formato";
-import { tarjetaProducto, filaCarrito, aviso, escaparTexto, filaPedido } from "./ui";
-import { obtenerProductos, obtenerProductoPorId } from "./api";
+import { Producto, ItemCarrito, EstadoCarga, Pedido, Cupon } from "./tipos.js";
+import { resumenCarrito, agregarItem, cambiarCantidad, quitarItem, contarPorCategoria } from "./carrito.js";
+import formatearPrecio from "./formato.js";
+import { tarjetaProducto, filaCarrito, aviso, escaparTexto, filaPedido } from "./ui.js";
+import { obtenerProductos, obtenerProductoPorId } from "./api.js";
+import { aplicarCupon, leerCupon } from "./cupones.js";
+
 
 // ---------- Referencias a la pantalla ----------
 const contenedor = document.querySelector(".productos") as HTMLElement;
@@ -186,18 +188,19 @@ const marcarCategoriaActiva = () => {
   })
 }
 // Todo lo que MUESTRA el carrito vive acá.
-// ⚠️ Clase 12, Bloque 1: acá abajo van document.title y el botón de confirmar.
 const pintarCarrito = (): void => {
-  const { cantidad, subtotal, total } = resumenCarrito(carrito)
+  const { cantidad, subtotal, total } = resumenCarrito(carrito);
+  cajaResumen.textContent = `🛒 ${cantidad} productos · ${formatearPrecio(total)}`;
+  listaCarrito.innerHTML = carrito.map(filaCarrito).join("");
 
-  cajaResumen.textContent = `🛒 ${cantidad} productos · ${formatearPrecio(total)}`
-
-  listaCarrito.innerHTML = carrito.map(filaCarrito).join("")
+  // Cupón de prueba para la entrega
+  const cuponPrueba: Cupon = { codigo: "OFERTA20", tipo: "porcentaje", valor: 20 };
+  const totalConCupon = aplicarCupon(total, cuponPrueba);
 
   totalCarrito.textContent = cantidad === 0
     ? "Tu carrito está vacío."
-    : `Subtotal: ${formatearPrecio(subtotal)} · IGV incluido · Total: ${formatearPrecio(total)}`
-}
+    : `Subtotal: ${formatearPrecio(subtotal)} · IGV incl. Total: ${formatearPrecio(total)} (Con cupón ${cuponPrueba.codigo}: ${formatearPrecio(totalConCupon)})`;
+};
 
 // ---------- Los eventos ----------
 // DELEGACIÓN: el listener vive en el contenedor, que nunca se reemplaza.

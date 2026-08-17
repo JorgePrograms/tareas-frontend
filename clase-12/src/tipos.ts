@@ -38,3 +38,13 @@ export interface Pedido {
   cantidad: number;
   total: number;
 }
+
+// --- Ejercicio 5: Contrato para Cupones ---
+export type TipoCupon = 'porcentaje' | 'monto';
+
+export interface Cupon {
+  codigo: string;
+  tipo: TipoCupon;
+  valor: number;
+  expira?: string; // Fecha opcional ISO (ej: '2026-12-31')
+}
